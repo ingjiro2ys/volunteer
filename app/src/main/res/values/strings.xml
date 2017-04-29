@@ -3,4 +3,14 @@
 
     <string name="open_drawer">Open Menu</string>
     <string name="close_drawer">Close Menu</string>
+
+    <array name="eventType">
+        <item>กิจกรรมสำหรับเด็ก/สร้างสื่อการเรียนรู้/ครูอาสา</item>
+        <item>งานออกแรง/งานก่อสร้าง</item>
+        <item>งานศิลปะ/ทาสี/งานฝีมือ</item>
+        <item>พัฒนาชุมชน/ทำความสะอาด</item>
+        <item>อนุรักษ์สิ่งแวดล้อม/ปลูกป่า/ปลูกปะการัง</item>
+        <item>ผู้พิการ/ผู้ป่วย/คนชรา</item>
+        <item>ช่วยเหลือสัตว์</item>
+    </array>
 </resources>
