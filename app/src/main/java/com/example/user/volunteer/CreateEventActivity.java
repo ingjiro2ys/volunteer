@@ -2,6 +2,9 @@ package com.example.user.volunteer;
 
 
 import android.app.DatePickerDialog;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,7 +15,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.util.Calendar;
+import java.util.List;
 
 
 public class CreateEventActivity extends AppCompatActivity {
@@ -23,6 +31,10 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText et_eventName;
     Spinner spinner_eventType;
     EditText et_regisAvailable;
+    private GoogleApiClient mGoogleApi;
+    EditText et_locationName;
+    Button btn_submit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,18 @@ public class CreateEventActivity extends AppCompatActivity {
 
         //handle calendar button
         showDialogOnButtonClick();
+
+        //connect to Location Service
+        mGoogleApi = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(mCallbacks)
+                .addOnConnectionFailedListener(mOnFailed)
+                .build();
+
+        //handle location name
+        forwordGeocoding();
+
+
 
     }
 
@@ -175,4 +199,78 @@ public class CreateEventActivity extends AppCompatActivity {
         });
     }
 
+    //get last location
+    private GoogleApiClient.ConnectionCallbacks mCallbacks =
+            new GoogleApiClient.ConnectionCallbacks(){
+
+                @Override
+                public void onConnected(Bundle bundle) {
+                    Location location = null;
+                    try{
+                        location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApi);
+                    }catch (SecurityException ex){}
+                    double lat = location.getLatitude();
+                    double lon = location.getLongitude();
+                }
+
+                @Override
+                public void onConnectionSuspended(int i) {
+
+                }
+
+            };
+
+    private GoogleApiClient.OnConnectionFailedListener mOnFailed =
+            new GoogleApiClient.OnConnectionFailedListener(){
+
+                @Override
+                public void onConnectionFailed(ConnectionResult result) {
+
+                }
+            };
+
+    private void forwordGeocoding(){
+        et_locationName = (EditText)findViewById(R.id.et_locationName);
+        btn_submit = (Button)findViewById(R.id.btn_submit);
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findCoordinate();
+            }
+        });
+
+    }
+
+    //convert name of location to lat,long
+    private void findCoordinate(){
+        String place = et_locationName.getText().toString();
+        Geocoder geocoder = new Geocoder(getBaseContext());
+        try{
+            List<Address> addr = geocoder.getFromLocationName(place,1);
+            String str = "";
+            str += "Latitude: "+addr.get(0).getLatitude()+"\n"
+                        +"Longitude: "+addr.get(0).getLongitude();
+            Toast.makeText(getBaseContext(),str,Toast.LENGTH_LONG).show();
+
+        }catch (Exception ex){
+
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        if(mGoogleApi != null){
+            mGoogleApi.connect();
+        }
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        if(mGoogleApi != null && mGoogleApi.isConnected()){
+            mGoogleApi.disconnect();
+        }
+        super.onStop();
+    }
 }
