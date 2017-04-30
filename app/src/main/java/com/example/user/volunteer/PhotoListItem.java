@@ -88,7 +88,7 @@ public class PhotoListItem extends BaseCustomViewGroup {
     /*@Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec); // width in px
-        int height = width * 1/3 ;
+        int height = width * 2/3 ;
         int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
                 height, MeasureSpec.EXACTLY);
         // Child View
