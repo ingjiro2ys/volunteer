@@ -29,7 +29,6 @@ public class CreateEventActivity extends AppCompatActivity {
     Button btn_endEvent;
     Button btn_openRegis, btn_closeRegis;
     EditText et_eventName;
-    Spinner spinner_eventType;
     EditText et_regisAvailable;
     private GoogleApiClient mGoogleApi;
     EditText et_locationName;
@@ -63,20 +62,25 @@ public class CreateEventActivity extends AppCompatActivity {
 
     public void init(){
         et_eventName = (EditText)findViewById(R.id.et_eventName);
-        spinner_eventType = (Spinner)findViewById(R.id.spinner_eventType);
+        final Spinner spinner_eventType = (Spinner)findViewById(R.id.spinner_eventType);
         et_regisAvailable = (EditText)findViewById(R.id.et_regisAvailable);
 
-        String eventName = et_eventName.toString();
+        String eventName = et_eventName.getText().toString();
 
+        int regisAvailable = 0; // Integer.parseInt(et_regisAvailable.toString());
+        try {
+            regisAvailable = Integer.parseInt(et_regisAvailable.getText().toString());
+        } catch(NumberFormatException nfe) {}
 
-        int regisAvailable = Integer.parseInt(et_regisAvailable.toString());
-        //insert db code
-
-        spinner_eventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinner_eventType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = spinner_eventType.getSelectedItem().toString();
-                //insert DB code
+                Toast.makeText(getBaseContext(),selectedItem,Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\42536c67d4af45410351738f3895e74d6ad18e95\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_fe00bd2dfa76bff93b9c248e00b58883ad023151.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\9a5a2c05833f12e9a4a4c57ffec40ea8f0246184\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6f4877a9f0a653e193bfb600379e4bfc8472be47">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_c39222cee0aad9c25d15fa76f2625cbe0906420b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\fdb734aa57d88526ff807fcef3a5398989ab839a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_15f9d5f0a104c018a353075961fe63ef060fb6b9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\fe329dcb016429f3580381a4ab848a2a45d2d092\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_1b3c279e26116866996062cdd8f561a37df40997.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.gradle\caches\modules-2\files-2.1\com.squareup\otto\1.3.8\cf615176cd1177edf71d3c9605f8dc148fede6be\otto-1.3.8.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="cf615176cd1177edf71d3c9605f8dc148fede6be">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\otto-1.3.8_5de328b67a5b0c062ca6e8388f0102e1ebc539c2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\6d218a0d73795c309497535a81dca60f321f6006\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_3a5f48efcdd63ac308a790c59fb3e456562fe9a8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\fb4e83f8c8f961f6942d7b994f1d99edc82a7e6a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_46d5a5e9303a6011be7e4e0d300d7aff68ce4baa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\a7da00b8be25a1038a8db3c4569ba3d9187454bf\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_e9b6ffc6752d5583b666942854826555f33ec456.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\d8871c69ed5029093ae5ef349e7a8880196e0fad\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_24eabe914f0fa0c080c20523b001709efbefb87b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\33b815d555eb4af44ba74f9f22d354cfa374d50a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="dd1d0d84da2cff18f741c63a9c3af7d9aa89fdd6">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_413637ced52459be6c2324dbf350845ed1a4c0c9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\8dca6055387462406e72ba31be40754b918572b9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_0455f4779a9268237fbd4951a4f39dd10a90668c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\support-annotations-25.3.1_6f50b9f2a8227129ddc55d5744badfc1f79ec747.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\3f30d56db426fc77a31a6e950e2a4fe658bc548a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7e0f082141b7aa90aab5d3a47ab09b0edc958f6b">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_28652fa7dea50215fbaa6d0a969edc29396ecb22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\817d26429fc89bd427d802305ccbfa3d61d93400\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_a4aa538aeeeda0439edc5ba4574a92988ad2fff4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\bd7cabad640334ec59ff8f652d4ad3be0cbc6ca2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_b4ce114a0ef77b809deea7279edbfd1429b26101.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\b6d3707f44a12d18f5d9a0bfabf79fcdd0c42f50\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_16475871e3dbde3cf08e7c2ebd80ebeebc880882.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\4ece9611f778a1e3ea5252b8a5bddf073db342eb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_a56adfa0eb33b14bd550ec010b7fda9eadfc157e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\Documents\GitHub\volunteer\TheCheeseLibrary\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2d9a54b72525b7eff8db2f41eefeffd02bfabb14">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_e8ec6c70f540321c7252605508975f427e534ef5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\ad7595dd974b546cf590a32365e37170b5feb91e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9ed08fab37c3a572da1d9ed2bf2e36c8d3e2bc48">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_e25ca13c8b34590e409113e28e62ebfb7c6019d2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Acer\.android\build-cache\d0e85c078c8f5fbb53525042380e94fbb85c593d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5803db663655ef5cb38c6bcb17ba326fdb9edfbd">
+        <dex dex="C:\Users\Acer\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_e2b8fd2f1051482246c5062dbb6bd70a78d16aea.jar" />
+    </item>
+
+</items>
