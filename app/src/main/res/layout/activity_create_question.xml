@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.volunteer.CreateQuestionActivity">
+
+    <LinearLayout
+        android:id="@+id/layabove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/Button01"
+            android:text="เพิ่มคำถาม"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#4f4d4a"
+            android:textColor="#fff"
+            />
+
+        <Button
+            android:id="@+id/btn_saveq"
+            android:text="บันทึก"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#4f4d4a"
+            android:textColor="#fff"/>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_below="@id/layabove"
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:id="@+id/lo_q"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

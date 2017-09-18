@@ -5,13 +5,27 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 
 
+public class PhotoListItem extends BaseCustomViewGroup { // มันคือ custom view group
 
-public class PhotoListItem extends BaseCustomViewGroup {
+    TextView tvName;
+    TextView tvDesc;
+    TextView tvType;
+    ImageView ivImage;
+
+    TextView tv_st;
+
+
+    TextView eventDate,eventJoin;
+    
 
     public PhotoListItem(Context context) {
         super(context);
@@ -47,6 +61,14 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvDesc = (TextView) findViewById(R.id.tvDesc);
+        tvType = (TextView) findViewById(R.id.tvType);
+        ivImage = (ImageView) findViewById(R.id.ivImg);
+
+        eventDate = (TextView) findViewById(R.id.eventDate);
+        eventJoin = (TextView) findViewById(R.id.eventJoin);
+        tv_st = (TextView) findViewById(R.id.tv_st);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -95,5 +117,41 @@ public class PhotoListItem extends BaseCustomViewGroup {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         // Self
         setMeasuredDimension(width,height);
+    }*/
+
+    public void setNameText(String text){
+        tvName.setText(text);
+    }
+
+    public void setDescriptionText(String text) {
+        tvDesc.setText(text);
+    }
+
+    public void setNameTypeText(String text) {
+        tvType.setText(text);
+    }
+
+    public void setImageUrl(String url){
+        Glide.with(getContext())
+                .load(url)
+                .placeholder(R.drawable.loading)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ivImage);
+    }
+
+    public void setStatus(String text){
+        tv_st.setText(text);
+        if(text.equals("เปิดรับสมัคร")) {
+            tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_green);
+        }
+    }
+
+
+    public void setEventDateText(String text) {
+        eventDate.setText(text);
+    }
+
+    /*public void setEventJoin(int join) {
+        eventJoin.setText(join);
     }*/
 }

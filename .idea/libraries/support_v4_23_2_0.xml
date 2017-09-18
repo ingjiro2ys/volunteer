@@ -4,9 +4,9 @@
       <root url="jar://$PROJECT_DIR$/TheCheeseLibrary/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/TheCheeseLibrary/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/res" />
-      <root url="jar://$PROJECT_DIR$/TheCheeseLibrary/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/libs/internal_impl-23.2.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/TheCheeseLibrary/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/037d29e707f40b9333d5a4a51ee672eea03f4051/output/jars/libs/internal_impl-23.2.0.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/037d29e707f40b9333d5a4a51ee672eea03f4051/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/037d29e707f40b9333d5a4a51ee672eea03f4051/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

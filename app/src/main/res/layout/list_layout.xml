@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:descendantFocusability="blocksDescendants" >
 
 
     <ImageView
@@ -11,7 +15,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:background="@drawable/loading"
         android:scaleType="centerCrop" />
 
 
@@ -21,7 +24,7 @@
         android:layout_weight="4"
         android:background="#FFFFFFFF"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tvName"
@@ -29,50 +32,86 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม"
+            android:text="ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม ชื่อกิจกรรม"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="3"
-            android:paddingTop="10dp"
-            android:text="Description Description Description Description Description Description Description Description Description Description"
+            android:maxLines="2"
+            android:layout_marginTop="5dp"
+            android:text="Description Description Description Description Description"
             android:textColor="#000000"
             android:textSize="12sp" />
 
+        <TextView
+            android:id="@+id/eventDate"
+            android:text="วันที่จ้า"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#C8C2C0"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ประเภทกิจกรรม"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#C8C2C0"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp">
+            android:paddingTop="5dp">
 
-            <Button
+            <TextView
+                android:text="status"
+                android:id="@+id/tv_st"
+                android:background="@drawable/shape_round_tv_status"
+                android:textColor="#FFF"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!--<Button
+                android:id="@+id/click_to_favorite"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/ic_favorite_border_black_18dp" />
 
             <Button
+                android:id="@+id/click_to_share"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/ic_share_black_16dp" />
 
             <Button
+                android:id="@+id/click_to_comment"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/ic_message_black_18dp" />
+                android:background="@drawable/ic_message_black_18dp" />-->
 
 
-        </RelativeLayout>
-
+        </RelativeLayout>-->
 
     </LinearLayout>
 
+    </LinearLayout>
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_overlay"/>
+
+</RelativeLayout>

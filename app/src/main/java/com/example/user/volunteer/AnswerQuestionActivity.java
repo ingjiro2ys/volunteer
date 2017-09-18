@@ -1,0 +1,182 @@
+package com.example.user.volunteer;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+
+public class AnswerQuestionActivity extends AppCompatActivity {
+
+    ScrollView scrollView;
+    private ListView listView;
+    Button button;
+    //String [] eventId;
+    String[] questionId;
+    EditText editText;
+    String[] userAnswer = new String[15];
+    int r = 0;
+    String userId = "2";
+    //String eventID;
+
+    private List<Answer> answers; //Full Color Names
+    private ArrayAdapter<Answer> answerArrayAdapter;
+
+    private final String URL = "http://10.4.56.14/";
+    private final String URL1 = "http://10.4.56.14/insertAnswer.php";
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_answer_question);
+
+        ////// Get data
+        listView = (ListView) findViewById(R.id.listQuestionView);
+        scrollView = (ScrollView) findViewById(R.id.scrollView1);
+        button = (Button) findViewById(R.id.sendAnsBtn);
+
+        //Initialize Color's List
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        retrofit.create(AnswerService.class).answers().enqueue(new Callback<List<Answer>>() {
+            @Override
+            public void onResponse(Call<List<Answer>> call, retrofit2.Response<List<Answer>> response) {
+                answers = response.body();
+                //answers = new ArrayList<>(answers);
+                answerArrayAdapter = new AnswerAdapter(AnswerQuestionActivity.this, R.layout.list_question_layout, answers);
+                listView.setAdapter(answerArrayAdapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(AnswerQuestionActivity.this, "lol", Toast.LENGTH_SHORT).show();
+
+                        /*Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                        intent.putExtra("color",item);
+                        intent.putExtra("code",code);
+                        startActivity(intent);*/
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<List<Answer>> call, Throwable t) {
+            }
+        });
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i=0;i<answers.size();i++) {
+                    // get answer from user
+                    View po = listView.getChildAt(i);
+                    editText = (EditText) po.findViewById(R.id.answer1);
+                    userAnswer[i] = editText.getText().toString();
+
+                    // send question id
+                    //questionId[i] = answers.get(i).getQuestionID();
+
+                    //Toast.makeText(getBaseContext(), answers.get(i).getQuestionID() + " " + userAnswer[i], Toast.LENGTH_SHORT).show();
+
+                }
+
+                    RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+                    StringRequest request = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("onResponse", response);
+                        Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("onError", error.toString()+"\n"+error.networkResponse.statusCode
+                                +"\n"+error.networkResponse.data+"\n"+error.getMessage());
+                        Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        //params.put("eventID", eventID);
+                        for(int s = 0; s < answers.size(); s++){
+                                params.put("answerDes["+s+"]", userAnswer[s]);
+                                params.put("questionID["+s+"]", answers.get(s).getQuestionID());
+                                //params.put("userID["+s+"]", userId);
+
+                            //params.put("questionName["+s+"]", question[s].toString());
+
+                            //params.put("questionID", questionID);
+
+                            r++;
+                        }
+                        return params;
+                    }
+                };
+                requestQueue.add(request);
+
+                Intent in = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(in);
+
+                }
+        });
+    }
+
+    interface AnswerService {
+        /*@POST("show_questions.php")
+        Call<List<Answer>> postEventId(@Field("eventID") int eventID);*/
+
+        @GET("show_questions.php")
+        Call<List<Answer>> answers();
+
+
+    }
+}
