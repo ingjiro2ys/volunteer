@@ -24,4 +24,6 @@ public interface ApiService {
     //Response getMyThing(@Query("userID") String userID);
     Call<PhotoItemCollectionDao> loadFav();
 
+    @POST("show_eventname_owner.php")
+    Call<PhotoItemCollectionDao> loadListOwner();
 }

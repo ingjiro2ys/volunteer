@@ -79,6 +79,7 @@ public class AnswerQuestionActivity extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollView1);
         button = (Button) findViewById(R.id.sendAnsBtn);
 
+
         //Initialize Color's List
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
@@ -103,80 +104,82 @@ public class AnswerQuestionActivity extends AppCompatActivity {
                         startActivity(intent);*/
                     }
                 });
-            }
+        }
 
+        @Override
+        public void onFailure (Call < List < Answer >> call, Throwable t){
+        }
+    });
+
+
+        button.setOnClickListener(new View.OnClickListener()
+
+    {
+        @Override
+        public void onClick (View v){
+        for (int i = 0; i < answers.size(); i++) {
+            // get answer from user
+            View po = listView.getChildAt(i);
+            editText = (EditText) po.findViewById(R.id.answer1);
+            userAnswer[i] = editText.getText().toString();
+
+            // send question id
+            //questionId[i] = answers.get(i).getQuestionID();
+
+            //Toast.makeText(getBaseContext(), answers.get(i).getQuestionID() + " " + userAnswer[i], Toast.LENGTH_SHORT).show();
+
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+        StringRequest request = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
             @Override
-            public void onFailure(Call<List<Answer>> call, Throwable t) {
+            public void onResponse(String response) {
+                Log.d("onResponse", response);
+                Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
             }
-        });
-
-
-        button.setOnClickListener(new View.OnClickListener() {
+        }, new Response.ErrorListener() {
             @Override
-            public void onClick(View v) {
-                for(int i=0;i<answers.size();i++) {
-                    // get answer from user
-                    View po = listView.getChildAt(i);
-                    editText = (EditText) po.findViewById(R.id.answer1);
-                    userAnswer[i] = editText.getText().toString();
+            public void onErrorResponse(VolleyError error) {
+                Log.d("onError", error.toString() + "\n" + error.networkResponse.statusCode
+                        + "\n" + error.networkResponse.data + "\n" + error.getMessage());
+                Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                //params.put("eventID", eventID);
+                for (int s = 0; s < answers.size(); s++) {
+                    params.put("answerDes[" + s + "]", userAnswer[s]);
+                    params.put("questionID[" + s + "]", answers.get(s).getQuestionID());
+                    //params.put("userID["+s+"]", userId);
 
-                    // send question id
-                    //questionId[i] = answers.get(i).getQuestionID();
+                    //params.put("questionName["+s+"]", question[s].toString());
 
-                    //Toast.makeText(getBaseContext(), answers.get(i).getQuestionID() + " " + userAnswer[i], Toast.LENGTH_SHORT).show();
+                    //params.put("questionID", questionID);
 
+                    r++;
                 }
+                return params;
+            }
+        };
+        requestQueue.add(request);
 
-                    RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
-                    StringRequest request = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("onResponse", response);
-                        Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("onError", error.toString()+"\n"+error.networkResponse.statusCode
-                                +"\n"+error.networkResponse.data+"\n"+error.getMessage());
-                        Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        //params.put("eventID", eventID);
-                        for(int s = 0; s < answers.size(); s++){
-                                params.put("answerDes["+s+"]", userAnswer[s]);
-                                params.put("questionID["+s+"]", answers.get(s).getQuestionID());
-                                //params.put("userID["+s+"]", userId);
+        Intent in = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(in);
 
-                            //params.put("questionName["+s+"]", question[s].toString());
-
-                            //params.put("questionID", questionID);
-
-                            r++;
-                        }
-                        return params;
-                    }
-                };
-                requestQueue.add(request);
-
-                Intent in = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(in);
-
-                }
-        });
     }
+    });
+}
 
-    interface AnswerService {
+interface AnswerService {
         /*@POST("show_questions.php")
         Call<List<Answer>> postEventId(@Field("eventID") int eventID);*/
 
-        @GET("show_questions.php")
-        Call<List<Answer>> answers();
+    @GET("show_questions.php")
+    Call<List<Answer>> answers();
 
 
-    }
+}
 }

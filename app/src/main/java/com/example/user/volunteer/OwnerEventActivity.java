@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
@@ -23,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
+public class OwnerEventActivity extends AppCompatActivity {
 
     ListView listView;
     PhotoListAdapter listAdapter;
@@ -35,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_owner_event);
+
         userID = getIntent().getStringExtra("userID");
 
         initInstance();
@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listViewOwner);
         listAdapter = new PhotoListAdapter();
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,15 +55,15 @@ public class RegisterActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO:ต้องให้ตัว dao รับเป็น Parcelable แล้วส่งไปหาอีก activity นึง
                 PhotoItemDao dao = photoListManager.getDao().getEvents().get(position);
-                Intent intent = new Intent(RegisterActivity.this, DetailActivity.class);
+                Intent intent = new Intent(OwnerEventActivity.this, DetailActivity.class);
                 intent.putExtra("dao", dao);
                 startActivity(intent);
-                Toast.makeText(RegisterActivity.this, dao.getEventID() + "", Toast.LENGTH_LONG).show();
+                Toast.makeText(OwnerEventActivity.this, dao.getEventID() + "", Toast.LENGTH_LONG).show();
             }
         });
 
         //////// Refresh data
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutOwner);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -88,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void reloadData() {
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadListRegis();
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadListOwner();
         call.enqueue(new Callback<PhotoItemCollectionDao>() {
             @Override
             public void onResponse(Call<PhotoItemCollectionDao> call,
@@ -99,12 +99,12 @@ public class RegisterActivity extends AppCompatActivity {
                     listAdapter.setDao(photoListManager.getDao());
                     listAdapter.notifyDataSetChanged();
                     //ลบข้างบน
-                    Toast.makeText(RegisterActivity.this,"Load Successful",
+                    Toast.makeText(OwnerEventActivity.this,"Load Successful",
                             Toast.LENGTH_SHORT).show();
                 }else {
                     // Handle
                     try {
-                        Toast.makeText(RegisterActivity.this,
+                        Toast.makeText(OwnerEventActivity.this,
                                 response.errorBody().string(),
                                 Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                                   Throwable t) {
                 // Handle Fail
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(RegisterActivity.this,
+                Toast.makeText(OwnerEventActivity.this,
                         t.toString(),
                         Toast.LENGTH_SHORT).show();
             }

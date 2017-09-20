@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     LinearLayout btn_1_favorite;
     LinearLayout btn_2_regis;
     LinearLayout btn_3_join;
-    //LinearLayout btn_4_history;
+    LinearLayout btn_4_owner;
     LinearLayout btn_5_logout;
 
     String userName, userFullName;
@@ -216,13 +216,13 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             }
         });
 
-        //btn_4_history = (LinearLayout) findViewById(R.id.btn_4_history);
-        //btn_4_history.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View v) {
-        //        Toast.makeText(MainActivity.this, "Event history", Toast.LENGTH_SHORT).show();
-        //    }
-        //});
+        btn_4_owner = (LinearLayout) findViewById(R.id.btn_4_owner);
+        btn_4_owner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Event's Owner", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         btn_5_logout = (LinearLayout) findViewById(R.id.btn_5_logout);
