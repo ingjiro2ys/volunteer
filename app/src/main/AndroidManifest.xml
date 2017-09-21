@@ -72,7 +72,6 @@
             android:name=".FavoriteActivity"
             android:label="อ่านภายหลัง"
             android:theme="@style/AppThemeWithActionBar"></activity>
-        <activity android:name=".OwnerEventActivity"></activity>
     </application>
 
 </manifest>
