@@ -63,7 +63,7 @@
             android:theme="@style/AppThemeWithActionBar"></activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="Registered"
+            android:label="กิจกรรมที่สมัคร"
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".AnswerQuestionActivity"
@@ -72,7 +72,10 @@
             android:name=".FavoriteActivity"
             android:label="อ่านภายหลัง"
             android:theme="@style/AppThemeWithActionBar"></activity>
-        <activity android:name=".OwnerEventActivity"></activity>
+        <activity android:name=".OwnerEventActivity"
+            android:label="กิจกรรมที่สร้าง"
+            android:theme="@style/AppThemeWithActionBar">
+        </activity>
     </application>
 
 </manifest>

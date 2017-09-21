@@ -220,7 +220,11 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         btn_4_owner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,OwnerEventActivity.class);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
                 Toast.makeText(MainActivity.this, "Event's Owner", Toast.LENGTH_SHORT).show();
+
             }
         });
 
