@@ -26,16 +26,15 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".MainActivity">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchableActivity" />
         </activity>
-
         <activity android:name=".SearchResultsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -58,20 +57,22 @@
             android:name=".CreateEventActivity"
             android:label="Create Event"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".CreateQuestionActivity"
+        <activity
+            android:name=".CreateQuestionActivity"
             android:label="เพิ่มคำถาม"
-            android:theme="@style/AppThemeWithActionBar">
-        </activity>
-        <activity android:name=".RegisterActivity"
+            android:theme="@style/AppThemeWithActionBar"></activity>
+        <activity
+            android:name=".RegisterActivity"
             android:label="Registered"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".AnswerQuestionActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity android:name=".FavoriteActivity"
+        <activity
+            android:name=".AnswerQuestionActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".FavoriteActivity"
             android:label="อ่านภายหลัง"
-            android:theme="@style/AppThemeWithActionBar">
-        </activity>
+            android:theme="@style/AppThemeWithActionBar"></activity>
+        <activity android:name=".OwnerEventActivity"></activity>
     </application>
 
 </manifest>

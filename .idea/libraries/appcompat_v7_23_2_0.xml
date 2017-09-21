@@ -4,8 +4,8 @@
       <root url="jar://$PROJECT_DIR$/TheCheeseLibrary/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/ea57eb72f15a476b32c21e75349eeb2f99b4fcb4/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/ea57eb72f15a476b32c21e75349eeb2f99b4fcb4/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/f6b634c40cd7d44c845fd075d0605a5523dd4fe2/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/f6b634c40cd7d44c845fd075d0605a5523dd4fe2/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

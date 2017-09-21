@@ -97,6 +97,9 @@ public class DetailActivity extends AppCompatActivity {
     String startRegis, endRegis;
     String endRegisDate, todayDate, startRegisDate;
     String favCode;
+    //TODO:ADD
+    int userOwnerID;
+    //add
 
     RequestQueue requestQueue;
 
@@ -166,6 +169,9 @@ public class DetailActivity extends AppCompatActivity {
         eventJoin.setText(dao.getJoinedAmount()+" คน");
         eventPhone.setText(dao.getEventPhone());
         eventLocation.setText(dao.getEventLocationName());
+        //TODO:ADD
+        userOwnerID = dao.getUserOwnerID();
+        //add
 
 
         joinEventBth.setOnClickListener(new View.OnClickListener() {
@@ -415,6 +421,20 @@ public class DetailActivity extends AppCompatActivity {
         ShareActionProvider shareActionProvider = (ShareActionProvider)
                 MenuItemCompat.getActionProvider(menuItem);
         shareActionProvider.setShareIntent(getShareIntent());
+        //TODO:ADD
+        MenuItem manage = (MenuItem) menu.findItem(R.id.action_manage);
+        if(userID.equals(""+userOwnerID)){
+            manage.setVisible(true);
+            manage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Intent in = new Intent(DetailActivity.this,MainActivity.class);
+                    startActivity(in);
+                    return true;
+                }
+            });
+        }
+        //add
         return true;
     }
 

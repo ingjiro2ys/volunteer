@@ -18,6 +18,8 @@ import com.example.user.volunteer.manager.HttpManager;
 import com.example.user.volunteer.manager.PhotoListManager;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                 PhotoItemDao dao = photoListManager.getDao().getEvents().get(position);
                 Intent intent = new Intent(RegisterActivity.this, DetailActivity.class);
                 intent.putExtra("dao", dao);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
                 Toast.makeText(RegisterActivity.this, dao.getEventName() + "", Toast.LENGTH_LONG).show();
             }
@@ -88,7 +91,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void reloadData() {
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadListRegis();
+        //add
+        Map<String,String> map = new HashMap<>();
+        map.put("userID", userID);
+        //add
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadListRegis(map);
         call.enqueue(new Callback<PhotoItemCollectionDao>() {
             @Override
             public void onResponse(Call<PhotoItemCollectionDao> call,

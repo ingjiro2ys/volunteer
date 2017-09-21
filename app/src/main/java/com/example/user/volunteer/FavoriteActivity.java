@@ -16,13 +16,17 @@ import com.example.user.volunteer.dao.PhotoItemCollectionDao;
 import com.example.user.volunteer.dao.PhotoItemDao;
 import com.example.user.volunteer.manager.HttpManager;
 import com.example.user.volunteer.manager.PhotoListManager;
+import com.example.user.volunteer.manager.http.ApiService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
@@ -47,15 +51,17 @@ public class FavoriteActivity extends AppCompatActivity {
         initInstance();
 
     }
+
     private void initInstance() {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         listView = (ListView) findViewById(R.id.listView);
         listAdapter = new PhotoListAdapter();
         listView.setAdapter(listAdapter);
+
+        //listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -63,6 +69,9 @@ public class FavoriteActivity extends AppCompatActivity {
                 PhotoItemDao dao = photoListManager.getDao().getEvents().get(position);
                 Intent intent = new Intent(FavoriteActivity.this, DetailActivity.class);
                 intent.putExtra("dao", dao);
+                //add
+                intent.putExtra("userID",userID);
+                //add
                 startActivity(intent);
                 Toast.makeText(FavoriteActivity.this, dao.getEventName() + "", Toast.LENGTH_LONG).show();
             }
@@ -94,7 +103,11 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void reloadData() {
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadFav();
+        //add
+        Map<String,String> map = new HashMap<>();
+        map.put("userID", userID);
+        //add
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadFav(map);
         call.enqueue(new Callback<PhotoItemCollectionDao>() {
             @Override
             public void onResponse(Call<PhotoItemCollectionDao> call,

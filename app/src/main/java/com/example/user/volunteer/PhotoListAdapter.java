@@ -61,10 +61,13 @@ public class PhotoListAdapter extends BaseAdapter {
 
         if(dao.getStartRegis().after(today)){
             item.setStatus("ยังไม่เปิดรับสมัคร");
+            item.setStatusColor("ยังไม่เปิดรับสมัคร");
         }else if((dao.getStartRegis().equals(today) || dao.getStartRegis().before(today))&& (dao.getEndRegis().after(today) || dao.getEndRegis().equals(today))){
             item.setStatus("เปิดรับสมัคร");
+            item.setStatusColor("เปิดรับสมัคร");
         }else if(dao.getEndRegis().before(today)){
             item.setStatus("ปิดรับสมัคร");
+            item.setStatusColor("ปิดรับสมัคร");
         }
 
         SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
