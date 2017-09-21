@@ -65,6 +65,13 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
             }
         });
 
+        forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this,"สมน้ำหน้า",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public void processFinish(String s) {

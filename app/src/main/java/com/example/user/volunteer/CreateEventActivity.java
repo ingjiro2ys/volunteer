@@ -3,7 +3,9 @@ package com.example.user.volunteer;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -102,6 +104,9 @@ public class CreateEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
+        //TODO: add sharePrefer
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
 
         //view
         init();
@@ -129,7 +134,6 @@ public class CreateEventActivity extends AppCompatActivity {
         submitClick();
 
         //Toast.makeText(getBaseContext(),todayDate+"+",Toast.LENGTH_SHORT).show();
-        userID = getIntent().getStringExtra("userID");
 
     }
 

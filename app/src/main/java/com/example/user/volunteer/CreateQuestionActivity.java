@@ -1,6 +1,8 @@
 package com.example.user.volunteer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,11 +53,16 @@ public class CreateQuestionActivity extends AppCompatActivity {
     int s;
     String [] question = new String[15];
     int r =0;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
+
+        //TODO: add sharePrefer
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
 
         onClickAddQuestion();
         onClickSave();

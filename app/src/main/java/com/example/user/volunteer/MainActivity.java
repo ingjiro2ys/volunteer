@@ -3,6 +3,7 @@ package com.example.user.volunteer;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -86,6 +87,12 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     RequestQueue requestQueue;
     String url;
 
+    //TODO:add
+    final String USER = "USER";
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    String userID_af_p;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,9 +150,15 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         }
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(getBaseContext(),"userID: "+s,Toast.LENGTH_SHORT).show();
             userID=s;
-            Toast.makeText(getBaseContext(),"userID2: "+userID,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),"userID: "+userID,Toast.LENGTH_SHORT).show();
+            sp = getSharedPreferences(USER,Context.MODE_PRIVATE);
+            editor = sp.edit();
+            editor.putString("userID",userID);
+            editor.commit();
+
+            userID_af_p = sp.getString("userID","");
+            Toast.makeText(getBaseContext(),"userID after Share Pre: "+userID_af_p,Toast.LENGTH_SHORT).show();
         }
     }
 

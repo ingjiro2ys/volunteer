@@ -1,6 +1,8 @@
 package com.example.user.volunteer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,8 +40,9 @@ public class OwnerEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_event);
 
-        userID = getIntent().getStringExtra("userID");
-        Toast.makeText(OwnerEventActivity.this,userID,Toast.LENGTH_SHORT).show();
+        //TODO: add sharePrefer
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
 
         initInstance();
     }
@@ -49,11 +52,10 @@ public class OwnerEventActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Initialize Fragment ///***********************
-        listView = (ListView) findViewById(R.id.listViewOwner);
+
+        listView = (ListView) findViewById(R.id.listView);
         listAdapter = new PhotoListAdapter();
         listView.setAdapter(listAdapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,17 +63,14 @@ public class OwnerEventActivity extends AppCompatActivity {
                 PhotoItemDao dao = photoListManager.getDao().getEvents().get(position);
                 Intent intent = new Intent(OwnerEventActivity.this, DetailActivity.class);
                 intent.putExtra("dao", dao);
-                intent.putExtra("userID",userID);
+                //intent.putExtra("userID", userID);
                 startActivity(intent);
-                //Toast.makeText(MainActivity.this,dao.getEventName()+"",Toast.LENGTH_LONG).show();
-
-                //Toast.makeText(MainActivity.this,dao.getJoinedAmount()+"",Toast.LENGTH_LONG).show();
-                //Toast.makeText(MainActivity.this,"Position: "+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(OwnerEventActivity.this, dao.getEventID() + "", Toast.LENGTH_LONG).show();
             }
         });
 
         //////// Refresh data
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutOwner);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -96,11 +95,11 @@ public class OwnerEventActivity extends AppCompatActivity {
     }
 
     private void reloadData() {
-        // send userID
+        //add
         Map<String,String> map = new HashMap<>();
         map.put("userID", userID);
-        // add
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadListOwner(map);
+        //add
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadOwner(map);
         call.enqueue(new Callback<PhotoItemCollectionDao>() {
             @Override
             public void onResponse(Call<PhotoItemCollectionDao> call,
@@ -137,5 +136,13 @@ public class OwnerEventActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

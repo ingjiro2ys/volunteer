@@ -1,6 +1,8 @@
 package com.example.user.volunteer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.example.user.volunteer.manager.HttpManager;
 import com.example.user.volunteer.manager.PhotoListManager;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -42,7 +45,10 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        userID = getIntent().getStringExtra("userID");
+
+        //TODO: add sharePrefer
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
 
         initInstance();
 
@@ -63,6 +69,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 PhotoItemDao dao = photoListManager.getDao().getEvents().get(position);
                 Intent intent = new Intent(FavoriteActivity.this, DetailActivity.class);
                 intent.putExtra("dao", dao);
+                //add
                 startActivity(intent);
                 Toast.makeText(FavoriteActivity.this, dao.getEventName() + "", Toast.LENGTH_LONG).show();
             }
@@ -94,7 +101,11 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void reloadData() {
-        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadFav();
+        //add
+        Map<String,String> map = new HashMap<>();
+        map.put("userID", userID);
+        //add
+        Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadFav(map);
         call.enqueue(new Callback<PhotoItemCollectionDao>() {
             @Override
             public void onResponse(Call<PhotoItemCollectionDao> call,

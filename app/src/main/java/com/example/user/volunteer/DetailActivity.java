@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -97,6 +98,9 @@ public class DetailActivity extends AppCompatActivity {
     String startRegis, endRegis;
     String endRegisDate, todayDate, startRegisDate;
     String favCode;
+    //TODO:ADD
+    int userOwnerID;
+    //add
 
     RequestQueue requestQueue;
 
@@ -104,16 +108,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        /*try {
-            Date date = format.parse(start_date);
-            System.out.println(date);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
         // ต้องรับ Parcelable มาจาก Main แล้วแสดง
-        userID = getIntent().getStringExtra("userID");
+        //TODO: add sharePrefer
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
+        //userID = getIntent().getStringExtra("userID");
         Toast.makeText(getBaseContext(),userID,Toast.LENGTH_SHORT).show();
         final PhotoItemDao dao = getIntent().getParcelableExtra("dao");
 
@@ -166,6 +165,9 @@ public class DetailActivity extends AppCompatActivity {
         eventJoin.setText(dao.getJoinedAmount()+" คน");
         eventPhone.setText(dao.getEventPhone());
         eventLocation.setText(dao.getEventLocationName());
+        //TODO:ADD
+        userOwnerID = dao.getUserOwnerID();
+        //add
 
 
         joinEventBth.setOnClickListener(new View.OnClickListener() {
@@ -365,42 +367,42 @@ public class DetailActivity extends AppCompatActivity {
     private void onButtonClick(){
         SimpleDateFormat fm = new SimpleDateFormat("EEE, d MMM yyyy");
         try {
-        if(fm.parse(todayDate).before(fm.parse(endRegisDate)) && fm.parse(todayDate).after(fm.parse(startRegisDate))
-                || fm.parse(todayDate).equals(fm.parse(startRegisDate))){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("onResponse",response);
-                //eventID = 0;
-                Toast.makeText(DetailActivity.this,"เพิ่มข้อมูลแล้ว",Toast.LENGTH_SHORT).show();
-                //Toast.makeText(DetailActivity.this,String.valueOf(eventID),Toast.LENGTH_SHORT).show();
-                Intent in = new Intent(DetailActivity.this,AnswerQuestionActivity.class);
-                //in.putExtra("eventID",String.valueOf(eventID));
-                startActivity(in);
-            }
-        },new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("onError",error.toString());
-                Toast.makeText(DetailActivity.this,"เกิดข้อผิดพลาดโปรดลองอีกครั้ง",Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String,String> params = new HashMap<String,String>();
-            params.put("eventID", ((String.valueOf(eventID)) ));
+            if(fm.parse(todayDate).before(fm.parse(endRegisDate)) && fm.parse(todayDate).after(fm.parse(startRegisDate))
+                    || fm.parse(todayDate).equals(fm.parse(startRegisDate))){
+                RequestQueue requestQueue = Volley.newRequestQueue(this);
+                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("onResponse",response);
+                        //eventID = 0;
+                        Toast.makeText(DetailActivity.this,"เพิ่มข้อมูลแล้ว",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(DetailActivity.this,String.valueOf(eventID),Toast.LENGTH_SHORT).show();
+                        Intent in = new Intent(DetailActivity.this,AnswerQuestionActivity.class);
+                        //in.putExtra("eventID",String.valueOf(eventID));
+                        startActivity(in);
+                    }
+                },new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("onError",error.toString());
+                        Toast.makeText(DetailActivity.this,"เกิดข้อผิดพลาดโปรดลองอีกครั้ง",Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> params = new HashMap<String,String>();
+                        params.put("eventID", ((String.valueOf(eventID)) ));
 
-            return params;
+                        return params;
+                    }
+                };
+                requestQueue.add(request);
+            }else if(fm.parse(todayDate).after(fm.parse(endRegisDate))){
+                Toast.makeText(DetailActivity.this, "หมดระยะเวลารับสมัครแล้ว",Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(DetailActivity.this, "ยังไม่ถึงเวลารับสมัคร",Toast.LENGTH_SHORT).show();
             }
-        };
-        requestQueue.add(request);
-        }else if(fm.parse(todayDate).after(fm.parse(endRegisDate))){
-            Toast.makeText(DetailActivity.this, "หมดระยะเวลารับสมัครแล้ว",Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(DetailActivity.this, "ยังไม่ถึงเวลารับสมัคร",Toast.LENGTH_SHORT).show();
-        }
-         } catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -415,6 +417,21 @@ public class DetailActivity extends AppCompatActivity {
         ShareActionProvider shareActionProvider = (ShareActionProvider)
                 MenuItemCompat.getActionProvider(menuItem);
         shareActionProvider.setShareIntent(getShareIntent());
+        //TODO:ADD
+        MenuItem manage = (MenuItem) menu.findItem(R.id.action_manage);
+        if(userID.equals(""+userOwnerID)){
+            manage.setVisible(true);
+            manage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Intent in = new Intent(DetailActivity.this,ShowUserRegisActivity.class);
+                    in.putExtra("eventID",(String.valueOf(eventID)));
+                    startActivity(in);
+                    return true;
+                }
+            });
+        }
+        //add
         return true;
     }
 
@@ -467,8 +484,8 @@ public class DetailActivity extends AppCompatActivity {
 
 
             }else
-                if(event2.getX() < event1.getX()){
-                }
+            if(event2.getX() < event1.getX()){
+            }
             return true;
 
         }

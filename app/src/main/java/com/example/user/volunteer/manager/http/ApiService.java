@@ -20,13 +20,12 @@ public interface ApiService {
     @POST("show_eventname_image.php")
     Call<PhotoItemCollectionDao> loadPhotoList();
 
-    @POST("show_eventname_userRegis.php")
-    Call<PhotoItemCollectionDao> loadListRegis();
+    @GET("show_eventname_userRegis.php")
+    Call<PhotoItemCollectionDao> loadListRegis(@QueryMap Map<String, String> map);
 
     @GET("show_fav.php")
-    //Response getMyThing(@Query("userID") String userID);
-    Call<PhotoItemCollectionDao> loadFav();
+    Call<PhotoItemCollectionDao> loadFav(@QueryMap Map<String, String> map);
 
     @POST("show_eventname_owner.php")
-    Call<PhotoItemCollectionDao> loadListOwner(@QueryMap Map<String,String> map);
+    Call<PhotoItemCollectionDao> loadOwner(@QueryMap Map<String, String> map);
 }

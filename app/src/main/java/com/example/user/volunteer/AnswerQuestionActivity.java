@@ -1,22 +1,18 @@
 package com.example.user.volunteer;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.os.StrictMode;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -26,17 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.volunteer.dao.Answer;
+import com.example.user.volunteer.dao.AnswerAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,22 +33,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 
 public class AnswerQuestionActivity extends AppCompatActivity {
 
     ScrollView scrollView;
     private ListView listView;
     Button button;
-    //String [] eventId;
     String[] questionId;
     EditText editText;
     String[] userAnswer = new String[15];
     int r = 0;
-    String userId = "2";
-    //String eventID;
+    String userID;
 
     private List<Answer> answers; //Full Color Names
     private ArrayAdapter<Answer> answerArrayAdapter;
@@ -73,6 +57,9 @@ public class AnswerQuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
+
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID", "");
 
         ////// Get data
         listView = (ListView) findViewById(R.id.listQuestionView);
@@ -104,82 +91,82 @@ public class AnswerQuestionActivity extends AppCompatActivity {
                         startActivity(intent);*/
                     }
                 });
-        }
+            }
 
-        @Override
-        public void onFailure (Call < List < Answer >> call, Throwable t){
-        }
-    });
+            @Override
+            public void onFailure(Call<List<Answer>> call, Throwable t) {
+            }
+        });
 
 
         button.setOnClickListener(new View.OnClickListener()
 
-    {
-        @Override
-        public void onClick (View v){
-        for (int i = 0; i < answers.size(); i++) {
-            // get answer from user
-            View po = listView.getChildAt(i);
-            editText = (EditText) po.findViewById(R.id.answer1);
-            userAnswer[i] = editText.getText().toString();
-
-            // send question id
-            //questionId[i] = answers.get(i).getQuestionID();
-
-            //Toast.makeText(getBaseContext(), answers.get(i).getQuestionID() + " " + userAnswer[i], Toast.LENGTH_SHORT).show();
-
-        }
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
-        StringRequest request = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
+        {
             @Override
-            public void onResponse(String response) {
-                Log.d("onResponse", response);
-                Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("onError", error.toString() + "\n" + error.networkResponse.statusCode
-                        + "\n" + error.networkResponse.data + "\n" + error.getMessage());
-                Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                //params.put("eventID", eventID);
-                for (int s = 0; s < answers.size(); s++) {
-                    params.put("answerDes[" + s + "]", userAnswer[s]);
-                    params.put("questionID[" + s + "]", answers.get(s).getQuestionID());
-                    //params.put("userID["+s+"]", userId);
+            public void onClick(View v) {
+                for (int i = 0; i < answers.size(); i++) {
+                    // get answer from user
+                    View po = listView.getChildAt(i);
+                    editText = (EditText) po.findViewById(R.id.answer1);
+                    userAnswer[i] = editText.getText().toString();
 
-                    //params.put("questionName["+s+"]", question[s].toString());
+                    // send question id
+                    //questionId[i] = answers.get(i).getQuestionID();
 
-                    //params.put("questionID", questionID);
+                    //Toast.makeText(getBaseContext(), answers.get(i).getQuestionID() + " " + userAnswer[i], Toast.LENGTH_SHORT).show();
 
-                    r++;
                 }
-                return params;
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+                StringRequest request = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("onResponse", response);
+                        Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("onError", error.toString() + "\n" + error.networkResponse.statusCode
+                                + "\n" + error.networkResponse.data + "\n" + error.getMessage());
+                        Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        //params.put("eventID", eventID);
+                        for (int s = 0; s < answers.size(); s++) {
+                            params.put("answerDes[" + s + "]", userAnswer[s]);
+                            params.put("questionID[" + s + "]", answers.get(s).getQuestionID());
+                            params.put("userID[" + s + "]", userID);
+
+                            //params.put("questionName["+s+"]", question[s].toString());
+
+                            //params.put("questionID", questionID);
+
+                            r++;
+                        }
+                        return params;
+                    }
+                };
+                requestQueue.add(request);
+
+                Intent in = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(in);
+
             }
-        };
-        requestQueue.add(request);
-
-        Intent in = new Intent(getBaseContext(), MainActivity.class);
-        startActivity(in);
-
+        });
     }
-    });
-}
 
-interface AnswerService {
+    interface AnswerService {
         /*@POST("show_questions.php")
         Call<List<Answer>> postEventId(@Field("eventID") int eventID);*/
 
-    @GET("show_questions.php")
-    Call<List<Answer>> answers();
+        @GET("show_questions.php")
+        Call<List<Answer>> answers();
 
 
-}
+    }
 }

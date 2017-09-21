@@ -1,4 +1,4 @@
-package com.example.user.volunteer;
+package com.example.user.volunteer.dao;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.user.volunteer.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,6 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
     private Context context;
     private int resource;
     private List<Answer> answers;
-    ArrayList<Answer> arrayList= new ArrayList<Answer>();
     int i=0;
 
     public AnswerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Answer> answers) {

@@ -1,4 +1,4 @@
-package com.example.user.volunteer;
+package com.example.user.volunteer.dao;
 
 import android.widget.EditText;
 

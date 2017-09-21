@@ -60,22 +60,26 @@
         <activity
             android:name=".CreateQuestionActivity"
             android:label="เพิ่มคำถาม"
-            android:theme="@style/AppThemeWithActionBar"></activity>
+            android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".RegisterActivity"
             android:label="กิจกรรมที่สมัคร"
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".AnswerQuestionActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".FavoriteActivity"
             android:label="อ่านภายหลัง"
-            android:theme="@style/AppThemeWithActionBar"></activity>
-        <activity android:name=".OwnerEventActivity"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".OwnerEventActivity"
             android:label="กิจกรรมที่สร้าง"
-            android:theme="@style/AppThemeWithActionBar">
-        </activity>
+            android:theme="@style/AppThemeWithActionBar"></activity>
+        <activity
+            android:name=".ShowUserRegisActivity"
+            android:label="รายชื่อผู้สมัคร"
+            android:theme="@style/AppThemeWithActionBar"></activity>
     </application>
 
 </manifest>
