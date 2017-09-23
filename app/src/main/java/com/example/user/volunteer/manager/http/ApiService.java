@@ -1,14 +1,14 @@
 package com.example.user.volunteer.manager.http;
 
-import com.android.volley.Response;
 import com.example.user.volunteer.dao.PhotoItemCollectionDao;
+import com.example.user.volunteer.dao.UserRegis;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -28,4 +28,8 @@ public interface ApiService {
 
     @POST("show_eventname_owner.php")
     Call<PhotoItemCollectionDao> loadOwner(@QueryMap Map<String, String> map);
+
+    @GET("show_eventname_joinUser.php")
+    Call<PhotoItemCollectionDao> loadJoin(@QueryMap Map<String, String> map);
+
 }

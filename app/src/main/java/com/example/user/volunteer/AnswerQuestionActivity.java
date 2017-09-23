@@ -1,18 +1,24 @@
 package com.example.user.volunteer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +31,16 @@ import com.android.volley.toolbox.Volley;
 import com.example.user.volunteer.dao.Answer;
 import com.example.user.volunteer.dao.AnswerAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,18 +49,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public class AnswerQuestionActivity extends AppCompatActivity {
 
     ScrollView scrollView;
     private ListView listView;
     Button button;
+    //String [] eventId;
     String[] questionId;
     EditText editText;
     String[] userAnswer = new String[15];
     int r = 0;
     String userID;
+    //String eventID;
 
     private List<Answer> answers; //Full Color Names
     private ArrayAdapter<Answer> answerArrayAdapter;
@@ -57,15 +77,16 @@ public class AnswerQuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
-
+        //TODO:ADD
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
-        userID = sp.getString("userID", "");
+        userID = sp.getString("userID","");
+        Toast.makeText(getBaseContext(),"userID after Share Pre: "+userID,Toast.LENGTH_SHORT).show();
+        //TODO:ADD
 
         ////// Get data
         listView = (ListView) findViewById(R.id.listQuestionView);
         scrollView = (ScrollView) findViewById(R.id.scrollView1);
         button = (Button) findViewById(R.id.sendAnsBtn);
-
 
         //Initialize Color's List
         Retrofit retrofit = new Retrofit.Builder()
@@ -99,12 +120,10 @@ public class AnswerQuestionActivity extends AppCompatActivity {
         });
 
 
-        button.setOnClickListener(new View.OnClickListener()
-
-        {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < answers.size(); i++) {
+                for(int i=0;i<answers.size();i++) {
                     // get answer from user
                     View po = listView.getChildAt(i);
                     editText = (EditText) po.findViewById(R.id.answer1);
@@ -128,19 +147,19 @@ public class AnswerQuestionActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("onError", error.toString() + "\n" + error.networkResponse.statusCode
-                                + "\n" + error.networkResponse.data + "\n" + error.getMessage());
+                        Log.d("onError", error.toString()+"\n"+error.networkResponse.statusCode
+                                +"\n"+error.networkResponse.data+"\n"+error.getMessage());
                         Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
                     }
-                }) {
+                }){
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
                         //params.put("eventID", eventID);
-                        for (int s = 0; s < answers.size(); s++) {
-                            params.put("answerDes[" + s + "]", userAnswer[s]);
-                            params.put("questionID[" + s + "]", answers.get(s).getQuestionID());
-                            params.put("userID[" + s + "]", userID);
+                        for(int s = 0; s < answers.size(); s++){
+                            params.put("answerDes["+s+"]", userAnswer[s]);
+                            params.put("questionID["+s+"]", answers.get(s).getQuestionID());
+                            //params.put("userID["+s+"]", userID);
 
                             //params.put("questionName["+s+"]", question[s].toString());
 
@@ -148,6 +167,7 @@ public class AnswerQuestionActivity extends AppCompatActivity {
 
                             r++;
                         }
+                        params.put("userID", userID);
                         return params;
                     }
                 };
@@ -166,7 +186,5 @@ public class AnswerQuestionActivity extends AppCompatActivity {
 
         @GET("show_questions.php")
         Call<List<Answer>> answers();
-
-
     }
 }

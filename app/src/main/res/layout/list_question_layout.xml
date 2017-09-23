@@ -17,7 +17,8 @@
         android:hint="answer here.."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:padding="16dp"/>
     
     <TextView
         android:id="@+id/tvEventId"

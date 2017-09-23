@@ -1,9 +1,12 @@
 package com.example.user.volunteer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,9 +16,15 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.example.user.volunteer.dao.Answer;
-import com.example.user.volunteer.dao.UserRegisEvent;
-import com.example.user.volunteer.dao.UserRegisEventAdapter;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.user.volunteer.dao.UserRegis;
+import com.example.user.volunteer.dao.UserRegisAdapter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,80 +39,161 @@ import retrofit2.http.QueryMap;
 
 public class ShowUserRegisActivity extends AppCompatActivity {
 
-    ScrollView scrollView;
     ListView listView;
+    ScrollView scrollView;
     Button button;
-    CheckBox checkBox;
 
-    String userID;
-    String eventID;
-
-    private List<UserRegisEvent> userRegis; //Full Color Names
-    private ArrayAdapter<UserRegisEvent> userRegisArrayAdapter;
+    private List<UserRegis> userRegises;
+    private ArrayAdapter<UserRegis> userRegisesArrayAdapter;
 
     private final String URL = "http://10.4.56.14/";
+    private final String URL1 = "http://10.4.56.14/updateIsJoin.php";
+
+    CheckBox checkBox;
+    String[] userWhoPass = new String[300];
+    int r = 0;
+    int b = 0;
+    String eventID,userID, isJoined, clickedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_user_regis);
 
-        eventID = getIntent().getStringExtra("eventID");
-        Toast.makeText(ShowUserRegisActivity.this,"event id="+eventID,Toast.LENGTH_SHORT).show();
-
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
-        userID = sp.getString("userID", "");
+        userID = sp.getString("userID","");
 
-        ////// Get data
-        listView = (ListView) findViewById(R.id.listView);
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
-        button = (Button) findViewById(R.id.userPassBtn);
+        eventID = getIntent().getStringExtra("eventID");
+        Toast.makeText(getBaseContext(),eventID,Toast.LENGTH_SHORT).show();
+        initInstance();
+    }
 
-        //TODO:add
-        /*Map<String,String> map = new HashMap<>();
-        map.put("eventID", eventID);*/
+    private void initInstance() {
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        listView = (ListView) findViewById(R.id.listUserRegis);
+        scrollView = (ScrollView) findViewById(R.id.scrollViewShowUser);
+        button = (Button) findViewById(R.id.sendUserRegisBtn);
+
+
+        // add
+        Map<String,String> map = new HashMap<>();
+        map.put("eventID", eventID);
         //Initialize Color's List
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        retrofit.create(UserRegisService.class).userRegis().enqueue(new Callback<List<UserRegisEvent>>() {
+        retrofit.create(UserRegisService.class).userRegis(map).enqueue(new Callback<List<UserRegis>>() {
             @Override
-            public void onResponse(Call<List<UserRegisEvent>> call, retrofit2.Response<List<UserRegisEvent>> response) {
-                userRegis = response.body();
-                //answers = new ArrayList<>(answers);
-                userRegisArrayAdapter = new UserRegisEventAdapter(ShowUserRegisActivity.this, R.layout.list_user_regis_layout, userRegis);
-                listView.setAdapter(userRegisArrayAdapter);
-
+            public void onResponse(Call<List<UserRegis>> call, retrofit2.Response<List<UserRegis>> response) {
+                Log.d("onResponse", "Called");
+                userRegises = response.body();
+                Log.d("onResponse", userRegises.toString());
+                userRegisesArrayAdapter = new UserRegisAdapter(ShowUserRegisActivity.this, R.layout.list_user_regis_layout, userRegises);
+                listView.setAdapter(userRegisesArrayAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ShowUserRegisActivity.this, userRegis.get(position).getUserFName()+"++", Toast.LENGTH_SHORT).show();
-                        /*Intent intent = new Intent(MainActivity.this,DetailActivity.class);
-                        intent.putExtra("color",item);
-                        intent.putExtra("code",code);
-                        startActivity(intent);*/
+                    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                        clickedUser = userRegises.get(position).getUserID();
+                        Intent intent = new Intent(ShowUserRegisActivity.this,ShowQuesAnsUserActivity.class);
+                        intent.putExtra("eventID",eventID);
+                        intent.putExtra("clickedUser",clickedUser);
+                        startActivity(intent);
+                        Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
 
             @Override
-            public void onFailure(Call<List<UserRegisEvent>> call, Throwable t) {
+            public void onFailure(Call<List<UserRegis>> call, Throwable t) {
+                Log.d("onFailure", "Called");
+                Log.d("onFailure", call.toString());
+                Log.d("onFailure", t.getMessage());
+                Log.d("onFailure", t.toString());
+                //Log.d("onFailure", call.);
             }
         });
 
+        clickSave();
+    }
+
+    private void clickSave() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ShowUserRegisActivity.this,"Hello jajaja",Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < userRegises.size(); i++) {
+                    // get answer from user
+                    View po = listView.getChildAt(i);
+                    checkBox = (CheckBox) po.findViewById(R.id.checkboxName);
+
+                    // TODO: dsfsdfds add
+                    if (checkBox.isChecked()) {
+                        userWhoPass[b] = userRegises.get(i).getUserID();
+                        //Toast.makeText(ShowUserRegisActivity.this, userWhoPass[b] + " user ja " + userRegises.get(i).getUserID(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShowUserRegisActivity.this, " user ja " +userWhoPass[b]+ "count "+ b, Toast.LENGTH_SHORT).show();
+                        b++;
+                    }
+                }
+
+                Toast.makeText(ShowUserRegisActivity.this, "count "+ b, Toast.LENGTH_SHORT).show();
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+                StringRequest request = new StringRequest(Request.Method.POST, URL1, new  Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("onResponse", response);
+                        Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("onError", error.toString() + "\n" + error.networkResponse.statusCode
+                                + "\n" + error.networkResponse.data + "\n" + error.getMessage());
+                        Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        //params.put("eventID", eventID);
+                        for (int s = 0; s < b; s++) {
+                            params.put("userID[" + s + "]", userWhoPass[s]);
+                            params.put("eventID[" + s + "]", eventID);
+                            Log.d("params :: ", params.toString());
+
+                            //params.put("questionName["+s+"]", question[s].toString());
+
+                            //params.put("questionID", questionID);
+
+                            r++;
+                        }
+                        //params.put("eventID", eventID);
+                        return params;
+                    }
+                };
+                requestQueue.add(request);
+
+                Intent in = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(in);
+
             }
         });
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     interface UserRegisService {
         @GET("show_user_regis.php")
-        Call<List<UserRegisEvent>> userRegis();
-        //@QueryMap Map<String, String> map
+        Call<List<UserRegis>> userRegis(@QueryMap Map<String, String> map);
     }
 }

@@ -43,6 +43,7 @@ public class OwnerEventActivity extends AppCompatActivity {
         //TODO: add sharePrefer
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
+        Toast.makeText(getBaseContext(),userID,Toast.LENGTH_SHORT).show();
 
         initInstance();
     }

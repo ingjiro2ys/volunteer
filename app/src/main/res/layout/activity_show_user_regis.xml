@@ -7,28 +7,33 @@
     tools:context="com.example.user.volunteer.ShowUserRegisActivity">
 
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/scrollViewShowUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <ListView
-                android:id="@+id/listView"
+                android:id="@+id/listUserRegis"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true" />
 
+        </LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/userPassBtn"
+        android:id="@+id/sendUserRegisBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send"
-        android:background="#E8A317"
-        android:layout_alignBottom="@+id/scrollView"/>
-
+        android:layout_alignBottom="@+id/scrollViewShowUser"/>
 
 </RelativeLayout>

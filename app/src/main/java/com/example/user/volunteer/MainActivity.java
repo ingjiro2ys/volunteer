@@ -103,9 +103,14 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         //Toast.makeText(MainActivity.this,userName,Toast.LENGTH_SHORT).show();
         requestQueue = Volley.newRequestQueue(this);
         url="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName;
-        getUserID();
+        //getUserID();
 
         initInstance();
+
+        //TODO:ADD
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
+        Toast.makeText(getBaseContext(),"userID after Share Pre1: "+userID,Toast.LENGTH_SHORT).show();
     }
 
     public void getUserID(){
@@ -204,7 +209,6 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(MainActivity.this,FavoriteActivity.class);
-                in.putExtra("userID",userID);
                 startActivity(in);
                 Toast.makeText(MainActivity.this, "Your Favorite Event", Toast.LENGTH_SHORT).show();
             }
@@ -215,7 +219,6 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
-                intent.putExtra("userID",userID);
                 startActivity(intent);
                 Toast.makeText(MainActivity.this, "Your Register Event", Toast.LENGTH_SHORT).show();
             }
@@ -225,6 +228,8 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         btn_3_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,JoinEventActivity.class);
+                startActivity(intent);
                 Toast.makeText(MainActivity.this, "Your Join Event", Toast.LENGTH_SHORT).show();
             }
         });
@@ -234,7 +239,6 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,OwnerEventActivity.class);
-                intent.putExtra("userID",userID);
                 startActivity(intent);
                 Toast.makeText(MainActivity.this, "Event's Owner", Toast.LENGTH_SHORT).show();
 
@@ -247,6 +251,8 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
 

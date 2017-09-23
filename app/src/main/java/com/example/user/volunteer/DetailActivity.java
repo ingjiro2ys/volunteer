@@ -392,7 +392,7 @@ public class DetailActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String,String> params = new HashMap<String,String>();
                         params.put("eventID", ((String.valueOf(eventID)) ));
-
+                        params.put("userID", (userID));
                         return params;
                     }
                 };

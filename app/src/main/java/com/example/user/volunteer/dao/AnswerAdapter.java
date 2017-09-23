@@ -25,7 +25,6 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
     private Context context;
     private int resource;
     private List<Answer> answers;
-    int i=0;
 
     public AnswerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Answer> answers) {
         super(context, resource, answers);

@@ -1,6 +1,5 @@
 package com.example.user.volunteer.dao;
 
-import android.widget.EditText;
 
 import com.google.gson.annotations.SerializedName;
 

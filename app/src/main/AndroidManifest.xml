@@ -75,11 +75,18 @@
         <activity
             android:name=".OwnerEventActivity"
             android:label="กิจกรรมที่สร้าง"
-            android:theme="@style/AppThemeWithActionBar"></activity>
+            android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".ShowUserRegisActivity"
-            android:label="รายชื่อผู้สมัคร"
-            android:theme="@style/AppThemeWithActionBar"></activity>
+            android:label="ผู้สมัตรกิจกรรม"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".ShowQuesAnsUserActivity"
+            android:label="คำตอบผู้สมัคร"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity android:name=".JoinEventActivity"
+            android:label="กิจกรรมที่เข้าร่วม"
+            android:theme="@style/AppThemeWithActionBar"/>
     </application>
 
 </manifest>
