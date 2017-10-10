@@ -43,7 +43,8 @@ public class UserRegisAdapter extends ArrayAdapter<UserRegis> {
         userRegisName.setText(userRegises.get(position).getUserFName()+"     "+userRegises.get(position).getUserLName());
 
         CheckBox checkBox = ((CheckBox)row.findViewById(R.id.checkboxName));
-        if(userRegises.get(position).getIsJoined()=="1"){
+        String join = "1";
+        if(userRegises.get(position).getIsJoined().equals(join)){
             checkBox.setChecked(true);
         }
 

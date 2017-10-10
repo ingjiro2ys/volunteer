@@ -35,5 +35,20 @@
         <item>ช่วยเหลือผู้ประสบภัย</item>
     </array>
 
+    <array name="eventType2">
+        <item>เลือก</item>
+        <item>กิจกรรมกับเด็ก</item>
+        <item>ช่วยเหลือผู้ป่วย/ผู้พิการ/คนชรา</item>
+        <item>ครูอาสา</item>
+        <item>ค่ายอนุรักษ์/สิ่งแวดล้อม</item>
+        <item>ก่อสร้าง/งานช่าง</item>
+        <item>งานฝีมือ/ดนตรี/ศิลปะ</item>
+        <item>ช่วยเหลือสัตว์</item>
+        <item>ศาสนา/ปฏิบัติธรรม</item>
+        <item>ทำความสะอาด</item>
+        <item>ไอที/คอมพิวเตอร์</item>
+        <item>ช่วยเหลือผู้ประสบภัย</item>
+    </array>
+
     <string name="login_error_message">Username or Password is incorrect.</string>
 </resources>

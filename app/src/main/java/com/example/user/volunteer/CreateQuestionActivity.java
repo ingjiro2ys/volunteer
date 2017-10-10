@@ -78,6 +78,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 return false;
             }
         });
@@ -165,8 +166,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
                 Intent in = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(in);
-
-
+                finish();
             }
         });
     }

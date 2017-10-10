@@ -39,10 +39,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
         </activity>
 
         <meta-data
@@ -78,14 +74,22 @@
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".ShowUserRegisActivity"
-            android:label="ผู้สมัตรกิจกรรม"
+            android:label="ผู้สมัครกิจกรรม"
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".ShowQuesAnsUserActivity"
             android:label="คำตอบผู้สมัคร"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".JoinEventActivity"
+        <activity
+            android:name=".JoinEventActivity"
             android:label="กิจกรรมที่เข้าร่วม"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".EditEventActivity"
+            android:label="แก้ไข"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity android:name=".FilterActivity"
+            android:label="Filter Event"
             android:theme="@style/AppThemeWithActionBar"/>
     </application>
 

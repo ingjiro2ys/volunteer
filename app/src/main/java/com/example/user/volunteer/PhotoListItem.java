@@ -145,11 +145,22 @@ public class PhotoListItem extends BaseCustomViewGroup { // มันคือ c
             tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_green);
         }
     }
+
     public void setStatusColor(String text){
         if(text.equals("เปิดรับสมัคร")) {
             tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_green);
-        }else{
+        }else if(text.equals("ปิดรับสมัคร")){
             tv_st.setBackgroundResource(R.drawable.shape_round_tv_status);
+        }else if(text.equals("ยังไม่เปิดรับสมัคร")){
+            tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_gray);
+        }else if(text.equals("อีก3วัน.. ปิดรับสมัคร")){
+            tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_yellow);
+        }else if(text.equals("อีก2วัน.. ปิดรับสมัคร")){
+            tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_yellow);
+        }else if(text.equals("อีก1วัน.. ปิดรับสมัคร")){
+            tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_yellow);
+        }else if(text.equals("เปิดรับสมัครวันสุดท้าย")){
+            tv_st.setBackgroundResource(R.drawable.shape_round_tv_status_yellow);
         }
     }
 

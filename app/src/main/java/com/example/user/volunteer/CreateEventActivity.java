@@ -88,6 +88,7 @@ public class CreateEventActivity extends AppCompatActivity {
     String eventID="null";
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date todayDate = new Date();
+    String todayDateN=null;
     Date sdate;
     Date edate;
     Date odate;
@@ -107,6 +108,8 @@ public class CreateEventActivity extends AppCompatActivity {
         //TODO: add sharePrefer
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
+
+        todayDateN = formatter.format(todayDate);
 
         //view
         init();
@@ -154,6 +157,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     /*intent.putExtra("lat",getLat());
                     intent.putExtra("lng",getLng());*/
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -284,23 +288,25 @@ public class CreateEventActivity extends AppCompatActivity {
                 Date odate = formatter.parse(startRegis);
                 Date cdate = formatter.parse(endRegis);
 
-                if(sdate.before(todayDate)){
+                Date tdDate = formatter.parse(todayDateN);
+
+                if(sdate.before(tdDate)){
                     ad.setMessage("กรุณาระบุวันเริ่มจัดกิจกรรมอีกครั้ง");
                     ad.show();
                     return false;
-                }else if(edate.before(todayDate)){
+                }else if(edate.before(tdDate)){
                     ad.setMessage("กรุณาระบุวันสิ้นสุดกิจกรรมอีกครั้ง");
                     ad.show();
                     return false;
-                }else if(odate.before(todayDate)){
+                }else if(odate.before(tdDate) && !odate.equals(tdDate)){
                     ad.setMessage("กรุณาระบุวันเปิดรับสมัครอีกครั้ง");
                     ad.show();
                     return false;
-                }else if(cdate.before(todayDate)){
+                }else if(cdate.before(tdDate)){
                     ad.setMessage("กรุณาระบุวันปิดรับสมัครอีกครั้ง");
                     ad.show();
                     return false;
-                } else if(sdate.after(todayDate) && edate.after(todayDate) && odate.after(todayDate) && cdate.after(todayDate)){
+                } else if(sdate.after(tdDate) && edate.after(tdDate) && odate.after(tdDate) && cdate.after(tdDate)){
                     if(sdate.before(edate)){ //วันจบกิจกรรมอยู่หลังวันเริ่ม ถูก
                         if(odate.before(cdate)){ //วันปิดรับสมัครอยู่หลังวันเปิด ถูก
                             if(odate.before(sdate)){ //รับสมัครก่อนทำกิจกรรม ถูก

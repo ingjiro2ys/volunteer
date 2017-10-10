@@ -65,10 +65,27 @@ public class PhotoListAdapter extends BaseAdapter {
         }else if((dao.getStartRegis().equals(today) || dao.getStartRegis().before(today))&& (dao.getEndRegis().after(today) || dao.getEndRegis().equals(today))){
             item.setStatus("เปิดรับสมัคร");
             item.setStatusColor("เปิดรับสมัคร");
+
+            if(dao.getEndRegis().getDate()-today.getDate()==3){
+                item.setStatus("อีก3วัน.. ปิดรับสมัคร");
+                item.setStatusColor("อีก3วัน.. ปิดรับสมัคร");
+            }else if(dao.getEndRegis().getDate()-today.getDate()==2){
+                item.setStatus("อีก2วัน.. ปิดรับสมัคร");
+                item.setStatusColor("อีก2วัน.. ปิดรับสมัคร");
+            }else if(dao.getEndRegis().getDate()-today.getDate()==1){
+                item.setStatus("อีก1วัน.. ปิดรับสมัคร");
+                item.setStatusColor("อีก1วัน.. ปิดรับสมัคร");
+            }else if(dao.getEndRegis().equals(today)){
+                item.setStatus("เปิดรับสมัครวันสุดท้าย");
+                item.setStatusColor("เปิดรับสมัครวันสุดท้าย");
+            }
+
+
         }else if(dao.getEndRegis().before(today)){
             item.setStatus("ปิดรับสมัคร");
             item.setStatusColor("ปิดรับสมัคร");
         }
+
 
         SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
         String st = fm.format(dao.getStartDate());

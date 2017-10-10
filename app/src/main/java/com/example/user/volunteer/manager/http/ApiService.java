@@ -32,4 +32,8 @@ public interface ApiService {
     @GET("show_eventname_joinUser.php")
     Call<PhotoItemCollectionDao> loadJoin(@QueryMap Map<String, String> map);
 
+    @GET("filtertype.php")
+    Call<PhotoItemCollectionDao> loadFilterType(@QueryMap Map<String, String> map);
+
+
 }

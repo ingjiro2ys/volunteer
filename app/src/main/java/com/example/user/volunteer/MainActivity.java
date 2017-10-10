@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import android.view.SearchEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,10 +35,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.user.volunteer.dao.PhotoItemCollectionDao;
 import com.example.user.volunteer.dao.PhotoItemDao;
+import com.example.user.volunteer.dao.SearchAdapter;
 import com.example.user.volunteer.manager.HttpManager;
 import com.example.user.volunteer.manager.PhotoListManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kosalgeek.asynctask.AsyncResponse;
 import com.kosalgeek.asynctask.PostResponseAsyncTask;
+import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
@@ -54,6 +60,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +70,9 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    MaterialSearchView searchView;
     Toolbar toolBar;
+    ListView lstvw;
 
     // Fragment
     ListView listView;
@@ -73,8 +82,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     PhotoListManager photoListManager = PhotoListManager.getInstance();
 
     TextView studentId, studentName;
-    SearchView searchView;
-    
+
     // Menu
     LinearLayout btn_1_favorite;
     LinearLayout btn_2_regis;
@@ -93,85 +101,109 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     SharedPreferences.Editor editor;
     String userID_af_p;
 
+    private List<PhotoItemDao> colors; //Full Color Names
+    private ArrayList filteredColors; //Full Color Names
+    private ArrayAdapter<PhotoItemDao> colorArrayAdapter;
+    private final String URL = "http://10.4.56.14/searcher.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userName = getIntent().getStringExtra("userName");
-        userFullName = getIntent().getStringExtra("studentName");
+        //userName = getIntent().getStringExtra("userName");
         //Toast.makeText(MainActivity.this,userName,Toast.LENGTH_SHORT).show();
         requestQueue = Volley.newRequestQueue(this);
-        url="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName;
-        //getUserID();
-
-        initInstance();
+//        url="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName;
+//        getUserFullName();
+//        Toast.makeText(MainActivity.this,userFullName,Toast.LENGTH_SHORT).show();
 
         //TODO:ADD
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        SharedPreferences sp1 = getSharedPreferences("USER1", Context.MODE_PRIVATE);
+        SharedPreferences sp2 = getSharedPreferences("USER2", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
-        Toast.makeText(getBaseContext(),"userID after Share Pre1: "+userID,Toast.LENGTH_SHORT).show();
-    }
+        userFullName = sp1.getString("userFullName","");
+        userName = sp2.getString("studentID","");
 
-    public void getUserID(){
-        new MyAsyncTask().execute(url,"parse");
-    }
-    class MyAsyncTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            String response = "";
-            try{
-                java.net.URL url = new URL(params[0]);
-                HttpURLConnection httpCon = (HttpURLConnection)url.openConnection();
-                httpCon.setDoInput(true);
-                httpCon.connect();
+        //Toast.makeText(getBaseContext(),"userID after Share Pre1: "+userID+"  "+userFullName,Toast.LENGTH_SHORT).show();
 
-                InputStream inStream = httpCon.getInputStream();
-                Scanner scanner = new Scanner(inStream, "Windows-874");
-                response = scanner.useDelimiter("\\A").next();
-            }catch (Exception ex){}
-
-            if(params[1].equals("show")){
-                return response;
-
-            }else if(params[1].equals("parse")){
-                String output = "";
-                try{
-                    JSONObject jsonResult = new JSONObject(response);
-                    JSONArray data = jsonResult.getJSONArray("User");
-                    for(int p =0; p < data.length(); p++ ){
-                        JSONObject productObject = data.optJSONObject(p);
-                        output = productObject.optString("userID");
-                        /*output += "* eventID "+productObject.optString("eventID");
-                        output += " - userID "+productObject.optString("userID");
-                        output += " - FavCode "+productObject.optString("chooseFavorite")+"\n";*/
-                    }
-                    //output += "\n";
-                } catch (JSONException e) {}
-                return output;
-            }else{
-                return "";
-            }
-        }
-        @Override
-        protected void onPostExecute(String s) {
-            userID=s;
-            Toast.makeText(getBaseContext(),"userID: "+userID,Toast.LENGTH_SHORT).show();
-            sp = getSharedPreferences(USER,Context.MODE_PRIVATE);
-            editor = sp.edit();
-            editor.putString("userID",userID);
-            editor.commit();
-
-            userID_af_p = sp.getString("userID","");
-            Toast.makeText(getBaseContext(),"userID after Share Pre: "+userID_af_p,Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void initInstance() {
         // Initialize Toolbar
         toolBar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolBar);
 
+        /************************ SEARCH VIEW********************************/
+
+        searchView = (MaterialSearchView)findViewById(R.id.searchView);
+        lstvw = (ListView)findViewById(R.id.lstvw);
+
+
+        try {
+
+
+            colors = new Gson().fromJson(Ion.with(this).load(URL).asString().get(), new TypeToken<ArrayList<PhotoItemDao>>() {}.getType());
+            filteredColors =  new ArrayList<>(colors);
+            colorArrayAdapter = new SearchAdapter(this, R.layout.list_search_event_row, filteredColors);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+
+                lstvw.setAdapter(colorArrayAdapter); //Only Create One time...
+
+                lstvw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        PhotoItemDao dao = (PhotoItemDao)lstvw.getItemAtPosition(position);
+//                        PhotoItemDao dao = photoListManager.getDao().getEvents().get(position);
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        intent.putExtra("dao",dao);
+                        startActivity(intent);
+
+                        Log.d("$$dao", dao.toString());
+                        //Toast.makeText(MainActivity.this,colors.get(position).getImagePath(), Toast.LENGTH_SHORT).show();
+                        //listView.setAdapter(listAdapter);
+                    }
+                });
+
+                reloadData();
+
+                return false;
+            }
+        });
+
+            initInstance();
+    }
+
+    private Iterator<PhotoItemDao> colorItr;
+
+    public void filter(String query) {
+        filteredColors.clear();
+        filteredColors.addAll(this.colors);
+        colorItr = filteredColors.listIterator();
+        while (colorItr.hasNext()) {
+            if (!colorItr.next().getEventName().contains(query)) {
+                colorItr.remove();
+            }
+        }
+        colorArrayAdapter.notifyDataSetChanged();
+    }
+
+    private void initInstance() {
         //Initialize FloatingActionButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_view);
         //Setting OnClick Listener to The Floating Action Button
@@ -203,6 +235,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         studentId.setText(userName);
 
         studentName = (TextView) findViewById(R.id.studentName);
+        studentName.setText(userFullName);
 
         btn_1_favorite = (LinearLayout) findViewById(R.id.btn_1_favorite);
         btn_1_favorite.setOnClickListener(new View.OnClickListener() {
@@ -276,22 +309,6 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
                 //Toast.makeText(MainActivity.this,"Position: "+position,Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*// Search
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filter(newText);
-                return false;
-            }
-        });*/
-
 
         //////// Refresh data
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
@@ -376,6 +393,12 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
+        if(item.getItemId()== R.id.filter){
+
+            Intent intent = new Intent(MainActivity.this,FilterActivity.class);
+            startActivity(intent);
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -384,39 +407,13 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the options menu from XML
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        searchView.setMenuItem(item);  //SERACH HERE FROM DUMP
 
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
 
         return true;
     }
-
-    /************************ SEARCH VIEW********************************/
-    /*private Iterator<PhotoItemDao> eventItr;
-
-    public void filter(String query) {
-        eventItr = filteredEvent.listIterator();
-        while (eventItr.hasNext()) {
-            if (!eventItr.next().getEventName().contains(query)) {
-                eventItr.remove();
-            }
-        }
-        colorArrayAdapter.notifyDataSetChanged();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                filteredEvent.clear();
-                filteredEvent.addAll(MainActivity.this.colors);
-            }
-        }, 100L);
-    }*/
 
 
 }

@@ -1,8 +1,10 @@
 package com.example.user.volunteer;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -88,8 +90,9 @@ public class DetailActivity extends AppCompatActivity {
     // TODO: เอาลิ้งไปแปะหน้า answer แทน
     private static final String URL = "http://10.4.56.14/insertRegis.php";
     private static final String URLFav = "http://10.4.56.14/insertFav.php";
+    private static final String URLDelete = "http://10.4.56.14/delete.php";
+
     int eventID;
-    //String userID2="2";
     String userID;
     String url;
 
@@ -97,9 +100,10 @@ public class DetailActivity extends AppCompatActivity {
     String startDate, endDate;
     String startRegis, endRegis;
     String endRegisDate, todayDate, startRegisDate;
-    String favCode;
+    String favCode, joinedAmount;
     //TODO:ADD
     int userOwnerID;
+    PhotoItemDao dao;
     //add
 
     RequestQueue requestQueue;
@@ -114,7 +118,7 @@ public class DetailActivity extends AppCompatActivity {
         userID = sp.getString("userID","");
         //userID = getIntent().getStringExtra("userID");
         Toast.makeText(getBaseContext(),userID,Toast.LENGTH_SHORT).show();
-        final PhotoItemDao dao = getIntent().getParcelableExtra("dao");
+        dao = getIntent().getParcelableExtra("dao");
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -154,7 +158,7 @@ public class DetailActivity extends AppCompatActivity {
         eventID = dao.getEventID();
 
         tvName.setText(dao.getEventName());
-        tvDesc.setText(dao.getEventDes1()+ " \n " + dao.getEventDes2());
+        tvDesc.setText(dao.getEventDes1()+ " \n ");
         Glide.with(DetailActivity.this)
                 .load(dao.getImagePath())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -167,6 +171,7 @@ public class DetailActivity extends AppCompatActivity {
         eventLocation.setText(dao.getEventLocationName());
         //TODO:ADD
         userOwnerID = dao.getUserOwnerID();
+        joinedAmount = (String.valueOf(dao.getJoinedAmount()));
         //add
 
 
@@ -368,7 +373,7 @@ public class DetailActivity extends AppCompatActivity {
         SimpleDateFormat fm = new SimpleDateFormat("EEE, d MMM yyyy");
         try {
             if(fm.parse(todayDate).before(fm.parse(endRegisDate)) && fm.parse(todayDate).after(fm.parse(startRegisDate))
-                    || fm.parse(todayDate).equals(fm.parse(startRegisDate))){
+                    || fm.parse(todayDate).equals(fm.parse(startRegisDate)) || fm.parse(todayDate).equals(fm.parse(endRegisDate))){
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
@@ -378,6 +383,7 @@ public class DetailActivity extends AppCompatActivity {
                         Toast.makeText(DetailActivity.this,"เพิ่มข้อมูลแล้ว",Toast.LENGTH_SHORT).show();
                         //Toast.makeText(DetailActivity.this,String.valueOf(eventID),Toast.LENGTH_SHORT).show();
                         Intent in = new Intent(DetailActivity.this,AnswerQuestionActivity.class);
+                        finish();
                         //in.putExtra("eventID",String.valueOf(eventID));
                         startActivity(in);
                     }
@@ -417,7 +423,7 @@ public class DetailActivity extends AppCompatActivity {
         ShareActionProvider shareActionProvider = (ShareActionProvider)
                 MenuItemCompat.getActionProvider(menuItem);
         shareActionProvider.setShareIntent(getShareIntent());
-        //TODO:ADD
+        //manage
         MenuItem manage = (MenuItem) menu.findItem(R.id.action_manage);
         if(userID.equals(""+userOwnerID)){
             manage.setVisible(true);
@@ -426,13 +432,97 @@ public class DetailActivity extends AppCompatActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     Intent in = new Intent(DetailActivity.this,ShowUserRegisActivity.class);
                     in.putExtra("eventID",(String.valueOf(eventID)));
+                    in.putExtra("joinedAmount",joinedAmount);
                     startActivity(in);
                     return true;
                 }
             });
         }
-        //add
+        //TODO:ADD
+        MenuItem edit = (MenuItem) menu.findItem(R.id.action_edit);
+        if(userID.equals(""+userOwnerID)){
+            edit.setVisible(true);
+            edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Intent in = new Intent(DetailActivity.this,EditEventActivity.class);
+                    /*in.putExtra("eventID",eventID);
+                    in.putExtra("eventName",eventName);
+                    in.putExtra("eventType",eventType);
+                    in.putExtra("startDate",startDate);
+                    in.putExtra("endDate",endDate);
+                    in.putExtra("startRegis",startRegis);
+                    in.putExtra("endRegis",endRegis);
+                    in.putExtra("regisAvilable",regisAvilable);
+                    in.putExtra("locationName",locationName);
+                    in.putExtra("telNo",telNo);
+                    in.putExtra("desc",desc);*/
+                    in.putExtra("dao",dao);
+
+                    startActivity(in);
+                    finish();
+                    return true;
+                }
+            });
+        }
+        MenuItem delete = (MenuItem) menu.findItem(R.id.action_delete);
+        if(userID.equals(""+userOwnerID)){
+            delete.setVisible(true);
+            delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    new AlertDialog.Builder(DetailActivity.this)
+                            //final AlertDialog alertDialog = builder.create();
+                            .setTitle("ยืนยันการลบ")
+                            .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteMethod();
+                                    Intent in = new Intent(getBaseContext(), MainActivity.class);
+                                    startActivity(in);
+                                    Toast.makeText(getBaseContext(), String.valueOf(eventID), Toast.LENGTH_SHORT).show();
+                                    finish();
+
+                                }
+                            }).setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
+                    return true;
+                }
+            });
+        }
         return true;
+    }
+
+    private void deleteMethod() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+        StringRequest request = new StringRequest(Request.Method.POST, URLDelete+"?eventID="+eventID, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("onResponse", response);
+                Toast.makeText(getBaseContext(), "Deleted !", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext()," "+r+" "+questionName,Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("onError", error.toString()+"\n"+error.networkResponse.statusCode
+                        +"\n"+error.networkResponse.data+"\n"+error.getMessage());
+                Toast.makeText(getBaseContext(), "error", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("eventID", String.valueOf(eventID));
+                Log.d("params :: ", params.toString());
+                //params.put("userOwnerID",userOwnerID + "");
+                return params;
+            }
+        };
+        requestQueue.add(request);
     }
 
     private Intent getShareIntent(){

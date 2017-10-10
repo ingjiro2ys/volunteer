@@ -13,27 +13,44 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ListView
                 android:id="@+id/listUserRegis"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:clickable="true" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/sendUserRegisBtn"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send"
-        android:layout_alignBottom="@+id/scrollViewShowUser"/>
+        android:layout_alignBottom="@+id/scrollViewShowUser"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/checkCountBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="เช็คจำนวนผู้ผ่าน" />
+
+        <Button
+            android:id="@+id/sendUserRegisBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ส่งข้อมูล" />
+
+    </LinearLayout>
 
 </RelativeLayout>

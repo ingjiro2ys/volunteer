@@ -36,14 +36,20 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
     String stdName, stdFaculty;
     int num;
 
-    String userID;
-    String url;
+    String userID,userFullName,studentID;
+    String url,urlName,urlID;
     final String TAG = this.getClass().getName();
 
     //TODO:add
     final String USER = "USER";
+    final String USER1 = "USER1";
+    final String USER2 = "USER2";
+
     SharedPreferences sp;
+    SharedPreferences sp1;
+    SharedPreferences sp2;
     SharedPreferences.Editor editor;
+//    SharedPreferences.Editor editor1;
     String userID_af_p;
 
 
@@ -78,7 +84,13 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
                 //TODO:ADD
                 url="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
                 getUserID();
-                //TODO:ADD
+
+                urlName="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
+                getUserFullName();
+
+                urlID="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
+                getStudentId();
+
             }
         });
 
@@ -95,8 +107,9 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
         Log.d(TAG, s);
         if (s.contains("success")) {
             Intent in = new Intent(LoginActivity.this, MainActivity.class);
-            in.putExtra("userName",userName.getText().toString());
+            //in.putExtra("userName",userName.getText().toString());
             startActivity(in);
+            finish();
         }else{
             Toast.makeText(LoginActivity.this,"Wrong username or password", Toast.LENGTH_LONG).show();
         }
@@ -131,6 +144,8 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
                     for(int p =0; p < data.length(); p++ ){
                         JSONObject productObject = data.optJSONObject(p);
                         output = productObject.optString("userID");
+
+
                         /*output += "* eventID "+productObject.optString("eventID");
                         output += " - userID "+productObject.optString("userID");
                         output += " - FavCode "+productObject.optString("chooseFavorite")+"\n";*/
@@ -145,7 +160,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
         @Override
         protected void onPostExecute(String s) {
             userID=s;
-            Toast.makeText(getBaseContext(),"userID: "+userID,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),"userID: "+userID,Toast.LENGTH_SHORT).show();
             sp = getSharedPreferences(USER, Context.MODE_PRIVATE);
             editor = sp.edit();
             editor.putString("userID",userID);
@@ -157,4 +172,119 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
         }
     }
 
+    public void getUserFullName(){
+        new MyAsyncTask1().execute(urlName,"parse");
+    }
+    class MyAsyncTask1 extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            try {
+                java.net.URL url = new URL(params[0]);
+                HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+                httpCon.setDoInput(true);
+                httpCon.connect();
+
+                InputStream inStream = httpCon.getInputStream();
+                Scanner scanner = new Scanner(inStream, "Windows-874");
+                response = scanner.useDelimiter("\\A").next();
+            } catch (Exception ex) {
+            }
+
+            if (params[1].equals("show")) {
+                return response;
+
+            } else if (params[1].equals("parse")) {
+                String output = "";
+                try {
+                    JSONObject jsonResult = new JSONObject(response);
+                    JSONArray data = jsonResult.getJSONArray("User");
+                    for (int p = 0; p < data.length(); p++) {
+                        JSONObject productObject = data.optJSONObject(p);
+                        output = productObject.optString("userFName");
+                        output += "    " + productObject.optString("userLname");
+
+
+                        /*output += "* eventID "+productObject.optString("eventID");
+                        output += " - userID "+productObject.optString("userID");
+                        output += " - FavCode "+productObject.optString("chooseFavorite")+"\n";*/
+                    }
+                    //output += "\n";
+                } catch (JSONException e) {
+                }
+                return output;
+            } else {
+                return "";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            userFullName = s;
+            //Toast.makeText(getBaseContext(), "userFName: " + userFullName, Toast.LENGTH_SHORT).show();
+            sp1 = getSharedPreferences(USER1, Context.MODE_PRIVATE);
+            editor = sp1.edit();
+            editor.putString("userFullName", userFullName);
+            editor.commit();
+
+            /*userID_af_p = sp.getString("userID","");
+            Toast.makeText(getBaseContext(),"userID after Share Pre2: "+userID_af_p,Toast.LENGTH_SHORT).show();*/
+
+        }
+    }
+
+    public void getStudentId(){
+        new MyAsyncTask2().execute(urlID,"parse");
+    }
+    class MyAsyncTask2 extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            try {
+                java.net.URL url = new URL(params[0]);
+                HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+                httpCon.setDoInput(true);
+                httpCon.connect();
+
+                InputStream inStream = httpCon.getInputStream();
+                Scanner scanner = new Scanner(inStream, "Windows-874");
+                response = scanner.useDelimiter("\\A").next();
+            } catch (Exception ex) {
+            }
+
+            if (params[1].equals("show")) {
+                return response;
+
+            } else if (params[1].equals("parse")) {
+                String output = "";
+                try {
+                    JSONObject jsonResult = new JSONObject(response);
+                    JSONArray data = jsonResult.getJSONArray("User");
+                    for (int p = 0; p < data.length(); p++) {
+                        JSONObject productObject = data.optJSONObject(p);
+                        output = productObject.optString("userName");
+
+                    }
+                } catch (JSONException e) {
+                }
+                return output;
+            } else {
+                return "";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            studentID = s;
+            //Toast.makeText(getBaseContext(), "userFName: " + userFullName, Toast.LENGTH_SHORT).show();
+            sp2 = getSharedPreferences(USER2, Context.MODE_PRIVATE);
+            editor = sp2.edit();
+            editor.putString("studentID", studentID);
+            editor.commit();
+
+            /*userID_af_p = sp.getString("userID","");
+            Toast.makeText(getBaseContext(),"userID after Share Pre2: "+userID_af_p,Toast.LENGTH_SHORT).show();*/
+
+        }
+    }
 }
