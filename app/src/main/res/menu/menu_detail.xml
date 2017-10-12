@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/action_share"
-        android:title="Share"
+        android:title="แชร์"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_manage"
-        android:title="manage"
+        android:title="จัดการ"
         android:icon="@drawable/edit_512"
         android:visible="false"
         app:showAsAction="always" />
@@ -22,6 +22,11 @@
     <item android:id="@+id/action_delete"
         android:title="ลบ"
         android:visible="false"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_report"
+        android:title="รายงาน"
+        android:visible="true"
         app:showAsAction="never"/>
 
 </menu>

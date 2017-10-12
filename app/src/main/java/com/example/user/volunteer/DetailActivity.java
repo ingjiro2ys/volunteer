@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.DialogPreference;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -20,11 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.MotionEvent;
@@ -105,6 +108,7 @@ public class DetailActivity extends AppCompatActivity {
     int userOwnerID;
     PhotoItemDao dao;
     //add
+    String reportT = "";
 
     RequestQueue requestQueue;
 
@@ -425,20 +429,20 @@ public class DetailActivity extends AppCompatActivity {
         shareActionProvider.setShareIntent(getShareIntent());
         //manage
         MenuItem manage = (MenuItem) menu.findItem(R.id.action_manage);
-        if(userID.equals(""+userOwnerID)){
+        if(userID.equals(""+userOwnerID)) {
             manage.setVisible(true);
             manage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    Intent in = new Intent(DetailActivity.this,ShowUserRegisActivity.class);
-                    in.putExtra("eventID",(String.valueOf(eventID)));
-                    in.putExtra("joinedAmount",joinedAmount);
+                    Intent in = new Intent(DetailActivity.this, ShowUserRegisActivity.class);
+                    in.putExtra("eventID", (String.valueOf(eventID)));
+                    in.putExtra("joinedAmount", joinedAmount);
                     startActivity(in);
                     return true;
                 }
             });
         }
-        //TODO:ADD
+        // edit
         MenuItem edit = (MenuItem) menu.findItem(R.id.action_edit);
         if(userID.equals(""+userOwnerID)){
             edit.setVisible(true);
@@ -465,6 +469,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
         }
+        // delete
         MenuItem delete = (MenuItem) menu.findItem(R.id.action_delete);
         if(userID.equals(""+userOwnerID)){
             delete.setVisible(true);
@@ -493,6 +498,45 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
         }
+        //TODO::add
+        final MenuItem report = (MenuItem) menu.findItem(R.id.action_report);
+        report.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Dialog
+                final AlertDialog.Builder ad = new AlertDialog.Builder(DetailActivity.this);
+
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_custom, null);
+                ad.setView(view);
+                ad.setMessage("เขียนข้อความเพื่อการรายงาน");
+                final EditText reportText = (EditText) view.findViewById(R.id.report);
+
+                ad.setPositiveButton("รายงาน", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(reportText!=null){
+                            reportT = reportText.getText().toString();
+                            Toast.makeText(getApplicationContext(), "ส่งสำเร็จ",
+                                    Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "กรุณากรอกข้อความรายงาน",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                ad.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                ad.show();
+                return false;
+            }
+        });
+
         return true;
     }
 
