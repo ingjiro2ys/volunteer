@@ -95,6 +95,9 @@ public class DetailActivity extends AppCompatActivity {
     private static final String URLFav = "http://10.4.56.14/insertFav.php";
     private static final String URLDelete = "http://10.4.56.14/delete.php";
 
+
+    private static final String URLReport = "http://10.4.56.14/insertReportEvent.php";
+
     int eventID;
     String userID;
     String url;
@@ -108,7 +111,7 @@ public class DetailActivity extends AppCompatActivity {
     int userOwnerID;
     PhotoItemDao dao;
     //add
-    String reportT = "";
+    String descriptReport = "";
 
     RequestQueue requestQueue;
 
@@ -417,6 +420,7 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    MenuItem report;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -450,17 +454,6 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     Intent in = new Intent(DetailActivity.this,EditEventActivity.class);
-                    /*in.putExtra("eventID",eventID);
-                    in.putExtra("eventName",eventName);
-                    in.putExtra("eventType",eventType);
-                    in.putExtra("startDate",startDate);
-                    in.putExtra("endDate",endDate);
-                    in.putExtra("startRegis",startRegis);
-                    in.putExtra("endRegis",endRegis);
-                    in.putExtra("regisAvilable",regisAvilable);
-                    in.putExtra("locationName",locationName);
-                    in.putExtra("telNo",telNo);
-                    in.putExtra("desc",desc);*/
                     in.putExtra("dao",dao);
 
                     startActivity(in);
@@ -498,34 +491,35 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
         }
-        //TODO::add
-        final MenuItem report = (MenuItem) menu.findItem(R.id.action_report);
+
+        //TODO::addReport menu
+        report = (MenuItem) menu.findItem(R.id.action_report);
         report.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 // Dialog
                 final AlertDialog.Builder ad = new AlertDialog.Builder(DetailActivity.this);
-
                 LayoutInflater inflater = getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_custom, null);
                 ad.setView(view);
                 ad.setMessage("เขียนข้อความเพื่อการรายงาน");
                 final EditText reportText = (EditText) view.findViewById(R.id.report);
-
                 ad.setPositiveButton("รายงาน", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(reportText!=null){
-                            reportT = reportText.getText().toString();
-                            Toast.makeText(getApplicationContext(), "ส่งสำเร็จ",
-                                    Toast.LENGTH_SHORT).show();
+                            if(reportText.length()<200){
+                                descriptReport = reportText.getText().toString();
+                                // send data
+                                clickReport();
+                                //Toast.makeText(getApplicationContext(), "ส่งสำเร็จ",Toast.LENGTH_SHORT).show();
+                            }
+
                         }else {
-                            Toast.makeText(getApplicationContext(), "กรุณากรอกข้อความรายงาน",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "กรุณากรอกข้อความเพื่อรายงาน",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
                 ad.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -533,11 +527,41 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 });
                 ad.show();
-                return false;
+                return true;
             }
         });
-
         return true;
+    }
+
+    private void clickReport() {
+        //TODO:Add request
+        RequestQueue requestQueue = Volley.newRequestQueue(getBaseContext());
+        StringRequest request = new StringRequest(Request.Method.POST, URLReport, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("onResponse", response);
+                Toast.makeText(getBaseContext(), "รายงานสำเร็จ", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("onError", error.toString()+"\n"+error.networkResponse.statusCode
+                        +"\n"+error.networkResponse.data+"\n"+error.getMessage());
+                Toast.makeText(getBaseContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("eventID", String.valueOf(eventID));
+                params.put("descriptReport",descriptReport);
+                params.put("userID",userID);
+
+                return params;
+            }
+        };
+        requestQueue.add(request);
     }
 
     private void deleteMethod() {
