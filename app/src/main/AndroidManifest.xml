@@ -26,7 +26,6 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,9 +87,20 @@
             android:name=".EditEventActivity"
             android:label="แก้ไข"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".FilterActivity"
+        <activity
+            android:name=".FilterActivity"
             android:label="Filter Event"
-            android:theme="@style/AppThemeWithActionBar"/>
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity android:name=".CommentActivity"
+            android:label="Comment"
+            android:theme="@style/AppThemeWithActionBar"
+            android:windowSoftInputMode="stateHidden">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

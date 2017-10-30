@@ -42,6 +42,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.user.volunteer.dao.Comment;
 import com.example.user.volunteer.dao.PhotoItemDao;
 
 
@@ -242,6 +243,15 @@ public class DetailActivity extends AppCompatActivity {
         url = "http://10.4.56.14/checkFav.php/?query=SELECT%20*%20FROM%20favoriteEvent%20where%20eventID="+eventID+"%20AND%20userID%20="+userID;
         //jsonReq();
         //postFav();
+        commentBtn = (Button) findViewById(R.id.commentBtn);
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(DetailActivity.this, CommentActivity.class);
+                in.putExtra("eventID", (String.valueOf(eventID)));
+                startActivity(in);
+            }
+        });
         favoriteBtn = (CheckBox) findViewById(R.id.favoriteBtn);
         //favoriteBtn.setButtonDrawable(R.drawable.favoritebtn);
         getFav();

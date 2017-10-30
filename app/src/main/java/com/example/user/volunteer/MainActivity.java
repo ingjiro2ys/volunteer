@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     SharedPreferences.Editor editor;
     String userID_af_p;
 
+    // For search
     private List<PhotoItemDao> colors; //Full Color Names
     private ArrayList filteredColors; //Full Color Names
     private ArrayAdapter<PhotoItemDao> colorArrayAdapter;
@@ -139,8 +140,6 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
 
 
         try {
-
-
             colors = new Gson().fromJson(Ion.with(this).load(URL).asString().get(), new TypeToken<ArrayList<PhotoItemDao>>() {}.getType());
             filteredColors =  new ArrayList<>(colors);
             colorArrayAdapter = new SearchAdapter(this, R.layout.list_search_event_row, filteredColors);
