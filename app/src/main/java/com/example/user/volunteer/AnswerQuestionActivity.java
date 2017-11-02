@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -64,24 +65,30 @@ public class AnswerQuestionActivity extends AppCompatActivity {
     String[] userAnswer = new String[15];
     int r = 0;
     String userID;
-    //String eventID;
+    String eventID;
 
     private List<Answer> answers; //Full Color Names
     private ArrayAdapter<Answer> answerArrayAdapter;
 
     private final String URL = "http://10.4.56.14/";
-    private final String URL1 = "http://10.4.56.14/insertAnswer.php";
+    private final String URL1 = "http://10.4.56.14/insertRegisAndAnswer.php";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
+
         //TODO:ADD
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
-        Toast.makeText(getBaseContext(),"userID after Share Pre: "+userID,Toast.LENGTH_SHORT).show();
-        //TODO:ADD
+        //Toast.makeText(getBaseContext(),"userID after Share Pre: "+userID,Toast.LENGTH_SHORT).show();
+
+
+        eventID = getIntent().getStringExtra("eventID");
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ////// Get data
         listView = (ListView) findViewById(R.id.listQuestionView);
@@ -155,7 +162,7 @@ public class AnswerQuestionActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        //params.put("eventID", eventID);
+
                         for(int s = 0; s < answers.size(); s++){
                             params.put("answerDes["+s+"]", userAnswer[s]);
                             params.put("questionID["+s+"]", answers.get(s).getQuestionID());
@@ -167,6 +174,7 @@ public class AnswerQuestionActivity extends AppCompatActivity {
 
                             r++;
                         }
+                        params.put("eventID", eventID);
                         params.put("userID", userID);
                         return params;
                     }
@@ -174,10 +182,20 @@ public class AnswerQuestionActivity extends AppCompatActivity {
                 requestQueue.add(request);
 
                 Intent in = new Intent(getBaseContext(), MainActivity.class);
+                finish();
                 startActivity(in);
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     interface AnswerService {

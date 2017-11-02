@@ -92,7 +92,7 @@ public class DetailActivity extends AppCompatActivity {
     String imagePath;
 
     // TODO: เอาลิ้งไปแปะหน้า answer แทน
-    private static final String URL = "http://10.4.56.14/insertRegis.php";
+    //private static final String URL = "http://10.4.56.14/insertRegis.php";
     private static final String URLFav = "http://10.4.56.14/insertFav.php";
     private static final String URLDelete = "http://10.4.56.14/delete.php";
 
@@ -375,7 +375,7 @@ public class DetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(getBaseContext(),"output: "+s,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),"output: "+s,Toast.LENGTH_SHORT).show();
             //favCode = s;
             if(s.equals("1")){
                 favoriteBtn.setChecked(true);
@@ -391,35 +391,40 @@ public class DetailActivity extends AppCompatActivity {
         try {
             if(fm.parse(todayDate).before(fm.parse(endRegisDate)) && fm.parse(todayDate).after(fm.parse(startRegisDate))
                     || fm.parse(todayDate).equals(fm.parse(startRegisDate)) || fm.parse(todayDate).equals(fm.parse(endRegisDate))){
-                RequestQueue requestQueue = Volley.newRequestQueue(this);
-                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("onResponse",response);
-                        //eventID = 0;
-                        Toast.makeText(DetailActivity.this,"เพิ่มข้อมูลแล้ว",Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(DetailActivity.this,String.valueOf(eventID),Toast.LENGTH_SHORT).show();
-                        Intent in = new Intent(DetailActivity.this,AnswerQuestionActivity.class);
-                        finish();
-                        //in.putExtra("eventID",String.valueOf(eventID));
-                        startActivity(in);
-                    }
-                },new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("onError",error.toString());
-                        Toast.makeText(DetailActivity.this,"เกิดข้อผิดพลาดโปรดลองอีกครั้ง",Toast.LENGTH_SHORT).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<String,String>();
-                        params.put("eventID", ((String.valueOf(eventID)) ));
-                        params.put("userID", (userID));
-                        return params;
-                    }
-                };
-                requestQueue.add(request);
+
+                Intent in = new Intent(DetailActivity.this,AnswerQuestionActivity.class);
+                //finish();
+                in.putExtra("eventID",(String.valueOf(eventID)));
+                startActivity(in);
+//                RequestQueue requestQueue = Volley.newRequestQueue(this);
+//                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d("onResponse",response);
+//                        //eventID = 0;
+//                        Toast.makeText(DetailActivity.this,"เพิ่มข้อมูลแล้ว",Toast.LENGTH_SHORT).show();
+//                        //Toast.makeText(DetailActivity.this,String.valueOf(eventID),Toast.LENGTH_SHORT).show();
+//                        Intent in = new Intent(DetailActivity.this,AnswerQuestionActivity.class);
+//                        finish();
+//                        //in.putExtra("eventID",String.valueOf(eventID));
+//                        startActivity(in);
+//                    }
+//                },new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.d("onError",error.toString());
+//                        Toast.makeText(DetailActivity.this,"เกิดข้อผิดพลาดโปรดลองอีกครั้ง",Toast.LENGTH_SHORT).show();
+//                    }
+//                }){
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String,String> params = new HashMap<String,String>();
+//                        params.put("eventID", ((String.valueOf(eventID)) ));
+//                        params.put("userID", (userID));
+//                        return params;
+//                    }
+//                };
+//                requestQueue.add(request);
             }else if(fm.parse(todayDate).after(fm.parse(endRegisDate))){
                 Toast.makeText(DetailActivity.this, "หมดระยะเวลารับสมัครแล้ว",Toast.LENGTH_SHORT).show();
             }else {

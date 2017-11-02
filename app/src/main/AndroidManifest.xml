@@ -62,7 +62,9 @@
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".AnswerQuestionActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:label="คำถามกิจกรรม"
+            android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".FavoriteActivity"
             android:label="อ่านภายหลัง"

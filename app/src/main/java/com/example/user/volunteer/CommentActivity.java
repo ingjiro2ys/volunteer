@@ -113,7 +113,11 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 description = editComment.getText().toString();
-                clickComment();
+                if(description.length()==0){
+                    Toast.makeText(getBaseContext(),"กรุณาใส่ข้อความ",Toast.LENGTH_SHORT).show();
+                }else {
+                    clickComment();
+                }
 
                 try  {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);

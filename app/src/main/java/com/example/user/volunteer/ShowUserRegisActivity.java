@@ -108,7 +108,8 @@ public class ShowUserRegisActivity extends AppCompatActivity {
                         intent.putExtra("eventID", eventID);
                         intent.putExtra("clickedUser", clickedUser);
                         startActivity(intent);
-                        Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID()
+                        //        +" event id:"+userRegises.get(position).getEventID(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -210,8 +211,8 @@ public class ShowUserRegisActivity extends AppCompatActivity {
                     startActivity(in);
                     finish();
 
-                }else{
-                    Toast.makeText(getBaseContext(),"กรุณาเช็คชื่อก่อนส่ง",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "กรุณาเช็คชื่อก่อนส่ง", Toast.LENGTH_SHORT).show();
                 }
             }
         });

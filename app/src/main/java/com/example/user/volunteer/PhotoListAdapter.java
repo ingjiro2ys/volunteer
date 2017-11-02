@@ -9,6 +9,7 @@ import com.example.user.volunteer.dao.PhotoItemDao;
 import com.example.user.volunteer.manager.PhotoListManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,6 +19,8 @@ import java.util.Date;
 public class PhotoListAdapter extends BaseAdapter {
 
     private PhotoItemCollectionDao dao;
+
+
 
     public void setDao(PhotoItemCollectionDao dao) {
         this.dao = dao;

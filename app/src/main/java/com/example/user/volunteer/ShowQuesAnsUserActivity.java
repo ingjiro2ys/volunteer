@@ -44,7 +44,7 @@ public class ShowQuesAnsUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ques_ans_user);
 
-        //TODO:ADD
+        // save userID
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
 
@@ -60,14 +60,12 @@ public class ShowQuesAnsUserActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ////// Get data
-        listView = (ListView) findViewById(R.id.listViewQA);
-        scrollView = (ScrollView) findViewById(R.id.scrollViewQA);
+        scrollView = (ScrollView)findViewById(R.id.scrollViewQA);
+        listView = (ListView)findViewById(R.id.listViewQA);
 
-        // add
         Map<String,String> map = new HashMap<>();
-        map.put("userID", clickedUser);
         map.put("eventID", eventID);
-        //Initialize QA List
+        map.put("userID",clickedUser);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -90,6 +88,7 @@ public class ShowQuesAnsUserActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override

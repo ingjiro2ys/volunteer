@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //userName = getIntent().getStringExtra("userName");
         //Toast.makeText(MainActivity.this,userName,Toast.LENGTH_SHORT).show();
         requestQueue = Volley.newRequestQueue(this);
@@ -138,11 +139,12 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         searchView = (MaterialSearchView)findViewById(R.id.searchView);
         lstvw = (ListView)findViewById(R.id.lstvw);
 
-
+        // TODO: add tonggnee
         try {
             colors = new Gson().fromJson(Ion.with(this).load(URL).asString().get(), new TypeToken<ArrayList<PhotoItemDao>>() {}.getType());
             filteredColors =  new ArrayList<>(colors);
             colorArrayAdapter = new SearchAdapter(this, R.layout.list_search_event_row, filteredColors);
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -186,6 +188,8 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         });
 
             initInstance();
+
+
     }
 
     private Iterator<PhotoItemDao> colorItr;
@@ -409,7 +413,29 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         getMenuInflater().inflate(R.menu.options_menu, menu);
         MenuItem item = menu.findItem(R.id.search);
         searchView.setMenuItem(item);  //SERACH HERE FROM DUMP
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                lstvw.setVisibility(View.VISIBLE);
+            }
 
+            @Override
+            public void onSearchViewClosed() {
+                lstvw.setVisibility(View.GONE);
+            }
+        });
+//        // add code hereeeee
+//        MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem item) {
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem item) {
+//                return true;
+//            }
+//        });
 
         return true;
     }
