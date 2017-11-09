@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.kosalgeek.asynctask.AsyncResponse;
 import com.kosalgeek.asynctask.PostResponseAsyncTask;
+import com.onesignal.OneSignal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,13 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        //OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
+
         
         initInstance();
     }
@@ -80,15 +88,15 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
                 postData.put("userPass", userPass.getText().toString());
 
                 PostResponseAsyncTask task = new PostResponseAsyncTask(LoginActivity.this, postData);
-                task.execute("http://10.4.56.14/login.php");
+                task.execute("http://10.4.56.14:82/loginuser.php");
                 //TODO:ADD
-                url="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
+                url="http://10.4.56.14:82/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
                 getUserID();
 
-                urlName="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
+                urlName="http://10.4.56.14:82/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
                 getUserFullName();
 
-                urlID="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
+                urlID="http://10.4.56.14:82/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName.getText().toString();
                 getStudentId();
 
             }

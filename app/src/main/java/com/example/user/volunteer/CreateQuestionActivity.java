@@ -46,7 +46,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
     String eventID="1";
     String questionName;
     String questionID = "null";
-    private static final String URL = "http://10.4.56.14/insertQuestion2.php";
+    private static final String URL = "http://10.4.56.14:82/insertQuestion2.php";
     static int i;
     int etAmount;
     int n;

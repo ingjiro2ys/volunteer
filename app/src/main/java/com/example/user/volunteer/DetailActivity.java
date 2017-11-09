@@ -92,12 +92,12 @@ public class DetailActivity extends AppCompatActivity {
     String imagePath;
 
     // TODO: เอาลิ้งไปแปะหน้า answer แทน
-    //private static final String URL = "http://10.4.56.14/insertRegis.php";
-    private static final String URLFav = "http://10.4.56.14/insertFav.php";
-    private static final String URLDelete = "http://10.4.56.14/delete.php";
+    //private static final String URL = "http://10.4.56.14:82/insertRegis.php";
+    private static final String URLFav = "http://10.4.56.14:82/insertFav.php";
+    private static final String URLDelete = "http://10.4.56.14:82/delete.php";
 
 
-    private static final String URLReport = "http://10.4.56.14/insertReportEvent.php";
+    private static final String URLReport = "http://10.4.56.14:82/insertReportEvent.php";
 
     int eventID;
     String userID;
@@ -240,7 +240,7 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(DetailActivity.this,"event id: "+eventID,Toast.LENGTH_SHORT).show();
 
         requestQueue = Volley.newRequestQueue(this);
-        url = "http://10.4.56.14/checkFav.php/?query=SELECT%20*%20FROM%20favoriteEvent%20where%20eventID="+eventID+"%20AND%20userID%20="+userID;
+        url = "http://10.4.56.14:82/checkFav.php/?query=SELECT%20*%20FROM%20favoriteEvent%20where%20eventID="+eventID+"%20AND%20userID%20="+userID;
         //jsonReq();
         //postFav();
         commentBtn = (Button) findViewById(R.id.commentBtn);
@@ -455,6 +455,7 @@ public class DetailActivity extends AppCompatActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     Intent in = new Intent(DetailActivity.this, ShowUserRegisActivity.class);
                     in.putExtra("eventID", (String.valueOf(eventID)));
+                    in.putExtra("eventName",eventName);
                     in.putExtra("joinedAmount", joinedAmount);
                     startActivity(in);
                     return true;

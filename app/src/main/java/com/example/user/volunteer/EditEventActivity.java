@@ -74,8 +74,8 @@ public class EditEventActivity extends AppCompatActivity {
     EditText et_desc;
     EditText et_telNo;
     // TODO: แก้ path insertEventDetail.php ไป
-    private static final String URL = "http://10.4.56.14/updateEventWithPic.php";
-    private static final String URL2 = "http://10.4.56.14/updateEventNoPic.php";
+    private static final String URL = "http://10.4.56.14:82/updateEventWithPic.php";
+    private static final String URL2 = "http://10.4.56.14:82/updateEventNoPic.php";
     String eventName;
     String eventDes1;
     String joinedAmount; //regisAvailable

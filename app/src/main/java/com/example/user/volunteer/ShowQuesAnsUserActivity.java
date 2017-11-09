@@ -37,7 +37,7 @@ public class ShowQuesAnsUserActivity extends AppCompatActivity {
     private List<QuestionAns> questionAnses;
     private ArrayAdapter<QuestionAns> questionAnsArrayAdapter;
 
-    private final String URL = "http://10.4.56.14/";
+    private final String URL = "http://10.4.56.14:82/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

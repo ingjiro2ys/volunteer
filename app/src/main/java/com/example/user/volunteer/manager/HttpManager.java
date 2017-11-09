@@ -32,7 +32,7 @@ public class HttpManager {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.4.56.14/")
+                .baseUrl("http://10.4.56.14:82/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 

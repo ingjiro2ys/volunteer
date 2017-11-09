@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.user.volunteer.dao.UserRegis;
 import com.example.user.volunteer.dao.UserRegisAdapter;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,6 +40,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,14 +58,19 @@ public class ShowUserRegisActivity extends AppCompatActivity {
     private List<UserRegis> userRegises;
     private ArrayAdapter<UserRegis> userRegisesArrayAdapter;
 
-    private final String URL = "http://10.4.56.14/";
-    private final String URL1 = "http://10.4.56.14/updateIsJoin.php";
+    private final String URL = "http://10.4.56.14:82/";
+    private final String URL1 = "http://10.4.56.14:82/updateIsJoin.php";
 
     CheckBox checkBox;
     String[] userWhoPass = new String[300];
     int r = 0;
     int b, c = 0;
     String eventID, userID, isJoined, clickedUser, joinedAmount;
+    String eventName;
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    Date today = new Date();
+    String todayDate = formatter.format(today);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +82,7 @@ public class ShowUserRegisActivity extends AppCompatActivity {
 
         eventID = getIntent().getStringExtra("eventID");
         joinedAmount = getIntent().getStringExtra("joinedAmount");
+        eventName = getIntent().getStringExtra("eventName");
         //Toast.makeText(getBaseContext(),eventID,Toast.LENGTH_SHORT).show();
         initInstance();
     }
@@ -108,8 +120,7 @@ public class ShowUserRegisActivity extends AppCompatActivity {
                         intent.putExtra("eventID", eventID);
                         intent.putExtra("clickedUser", clickedUser);
                         startActivity(intent);
-                        //Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID()
-                        //        +" event id:"+userRegises.get(position).getEventID(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -193,6 +204,7 @@ public class ShowUserRegisActivity extends AppCompatActivity {
                             for (int s = 0; s < b; s++) {
                                 params.put("userID[" + s + "]", userWhoPass[s]);
                                 params.put("eventID[" + s + "]", eventID);
+                                params.put("todayDate", todayDate);
                                 Log.d("params :: ", params.toString());
 
                                 //params.put("questionName["+s+"]", question[s].toString());
@@ -211,9 +223,11 @@ public class ShowUserRegisActivity extends AppCompatActivity {
                     startActivity(in);
                     finish();
 
-                } else {
-                    Toast.makeText(getBaseContext(), "กรุณาเช็คชื่อก่อนส่ง", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getBaseContext(),"กรุณาเช็คชื่อก่อนส่ง",Toast.LENGTH_SHORT).show();
                 }
+
+                sendNotification();
             }
         });
     }
@@ -231,4 +245,82 @@ public class ShowUserRegisActivity extends AppCompatActivity {
         @GET("show_user_regis.php")
         Call<List<UserRegis>> userRegis(@QueryMap Map<String, String> map);
     }
+
+    private void sendNotification()
+    {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                if (SDK_INT > 8) {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                            .permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    String [] send_userID= new String[300];
+
+                    //This is a Simple Logic to Send Notification different Device Programmatically....
+                    /*if (userID.equals("57130500001")) {
+                        send_userID = "57130500002";
+                    } else {
+                        send_userID = "57130500001";
+                    }*/
+                    int s;
+                    for (s = 0; s < b; s++) {
+                        send_userID[s]=userWhoPass[s];
+
+
+                        try {
+                            String jsonResponse;
+
+                            java.net.URL url = new URL("https://onesignal.com/api/v1/notifications");
+                            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                            con.setUseCaches(false);
+                            con.setDoOutput(true);
+                            con.setDoInput(true);
+
+                            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                            con.setRequestProperty("Authorization", "Basic NjQ1MGIyNzAtYTMzZS00MjFhLThlY2UtZmRhODMxMjMxZWQ0");
+                            con.setRequestMethod("POST");
+
+                            String strJsonBody = "{"
+                                    + "\"app_id\": \"f2da3b3a-5133-41d5-b562-c2a5b0b7b04c\","
+
+                                    + "\"filters\": [{\"field\": \"tag\", \"key\": \"User_ID\", \"relation\": \"=\", \"value\": \"" + send_userID[s] + "\"}],"
+
+                                    + "\"data\": {\"foo\": \"bar\"},"
+                                    + "\"contents\": {\"en\": \"ยินดีด้วย คุณได้รับคัดเลือกเข้าร่วมกิจกรรม "+eventName+"\"}"
+                                    + "}";
+
+
+                            System.out.println("strJsonBody:\n" + strJsonBody);
+
+                            byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+                            con.setFixedLengthStreamingMode(sendBytes.length);
+
+                            OutputStream outputStream = con.getOutputStream();
+                            outputStream.write(sendBytes);
+
+                            int httpResponse = con.getResponseCode();
+                            System.out.println("httpResponse: " + httpResponse);
+
+                            if (httpResponse >= HttpURLConnection.HTTP_OK
+                                    && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
+                                Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
+                                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                                scanner.close();
+                            } else {
+                                Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
+                                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                                scanner.close();
+                            }
+                            System.out.println("jsonResponse:\n" + jsonResponse);
+
+                        } catch (Throwable t) {
+                            t.printStackTrace();
+                        }}
+                }
+            }
+        });
+    }
 }
+

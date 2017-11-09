@@ -50,8 +50,8 @@ public class CommentActivity extends AppCompatActivity {
     private List<Comment> comments;
     private ArrayAdapter<Comment> commentArrayAdapter;
 
-    private final String URL = "http://10.4.56.14/";
-    private final String URL1 = "http://10.4.56.14/insertComment.php";
+    private final String URL = "http://10.4.56.14:82/";
+    private final String URL1 = "http://10.4.56.14:82/insertComment.php";
     String userID;
     String eventID;
     String description;

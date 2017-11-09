@@ -70,8 +70,8 @@ public class AnswerQuestionActivity extends AppCompatActivity {
     private List<Answer> answers; //Full Color Names
     private ArrayAdapter<Answer> answerArrayAdapter;
 
-    private final String URL = "http://10.4.56.14/";
-    private final String URL1 = "http://10.4.56.14/insertRegisAndAnswer.php";
+    private final String URL = "http://10.4.56.14:82/";
+    private final String URL1 = "http://10.4.56.14:82/insertRegisAndAnswer.php";
 
 
     @Override

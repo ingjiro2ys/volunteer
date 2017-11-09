@@ -103,6 +103,16 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+        <activity
+            android:name=".NotificationActivity"
+            android:label="แจ้งเตือน"
+            android:theme="@style/AppThemeWithActionBar">
+        </activity>
+        <activity
+            android:name=".Detail2Activity"
+            android:label="กิจกรรม"
+            android:theme="@style/AppThemeWithActionBar" />
+
     </application>
 
 </manifest>

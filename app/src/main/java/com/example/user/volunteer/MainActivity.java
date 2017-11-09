@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -44,6 +46,8 @@ import com.kosalgeek.asynctask.AsyncResponse;
 import com.kosalgeek.asynctask.PostResponseAsyncTask;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OneSignal;
 
 
 import org.json.JSONArray;
@@ -60,6 +64,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
@@ -105,7 +111,12 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     private List<PhotoItemDao> colors; //Full Color Names
     private ArrayList filteredColors; //Full Color Names
     private ArrayAdapter<PhotoItemDao> colorArrayAdapter;
-    private final String URL = "http://10.4.56.14/searcher.php";
+    private final String URL = "http://10.4.56.14:82/searcher.php";
+    Timer repeatTask = new Timer();
+    int repeatInterval = 5000;
+    String listAmount="0";
+    MenuItem itemCart;
+    LayerDrawable icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +127,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         //userName = getIntent().getStringExtra("userName");
         //Toast.makeText(MainActivity.this,userName,Toast.LENGTH_SHORT).show();
         requestQueue = Volley.newRequestQueue(this);
-//        url="http://10.4.56.14/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName;
+//        url="http://10.4.56.14:82/getUserID.php/?query=SELECT%20*%20FROM%20user%20where%20userName="+userName;
 //        getUserFullName();
 //        Toast.makeText(MainActivity.this,userFullName,Toast.LENGTH_SHORT).show();
 
@@ -186,8 +197,19 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
                 return false;
             }
         });
+        VersionHelper.refreshActionBarMenu(this);
+        initInstance();
+        OneSignal.sendTag("User_ID",userID);
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new OneSignal.NotificationOpenedHandler() {
+                    @Override
+                    public void notificationOpened(OSNotificationOpenResult result) {
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .init();
 
-            initInstance();
 
 
     }
@@ -438,6 +460,110 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
 //        });
 
         return true;
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        itemCart = menu.findItem(R.id.action_cart);
+        icon = (LayerDrawable) itemCart.getIcon();
+        setBadgeCount(this, icon, listAmount);
+        Toast.makeText(getBaseContext(),"listAmount: "+listAmount,Toast.LENGTH_SHORT).show();
+        itemCart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+        return true;
+    }
+
+
+    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
+
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_badge, badge);
+    }
+
+    public void countRepeat() {
+        repeatTask.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //Log.d("repeat","hello");
+                //Toast.makeText(getBaseContext(),"repeat",Toast.LENGTH_SHORT).show();
+                countNoti();
+            }
+        }, 0, repeatInterval);
+
+    }
+    public void countNoti(){
+        new MyAsyncTask().execute("http://10.4.56.14:82/get_isJoined_count.php/?userID="+userID,"parse");
+    }
+
+    class MyAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            try{
+                java.net.URL url = new URL(params[0]);
+                HttpURLConnection httpCon = (HttpURLConnection)url.openConnection();
+                httpCon.setDoInput(true);
+                httpCon.connect();
+
+                InputStream inStream = httpCon.getInputStream();
+                Scanner scanner = new Scanner(inStream, "Windows-874");
+                response = scanner.useDelimiter("\\A").next();
+            }catch (Exception ex){}
+
+            if(params[1].equals("show")){
+                return response;
+
+            }else if(params[1].equals("parse")){
+                String output = "";
+                try{
+                    JSONObject jsonResult = new JSONObject(response);
+                    JSONArray data = jsonResult.getJSONArray("Count");
+                    for(int p =0; p < data.length(); p++ ){
+                        JSONObject productObject = data.optJSONObject(p);
+                        output = productObject.optString("count(1)");
+                        /*output += "* eventID "+productObject.optString("eventID");
+                        output += " - userID "+productObject.optString("userID");
+                        output += " - FavCode "+productObject.optString("chooseFavorite")+"\n";*/
+                    }
+                    //output += "\n";
+                } catch (JSONException e) {}
+                return output;
+            }else{
+                return "";
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            listAmount=s;
+            //Toast.makeText(getBaseContext(),"listAmount: "+listAmount,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        countNoti();
+        Toast.makeText(getBaseContext(),"Resume : "+listAmount,Toast.LENGTH_SHORT).show();
+        VersionHelper.refreshActionBarMenu(this);
     }
 
 

@@ -73,7 +73,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText et_desc;
     EditText et_telNo;
     // TODO: แก้ path insertEventDetail.php ไป
-    private static final String URL = "http://10.4.56.14/insertEventDetail.php";
+    private static final String URL = "http://10.4.56.14:82/insertEventDetail.php";
     String eventName;
     String eventDes1;
     String joinedAmount; //regisAvailable
