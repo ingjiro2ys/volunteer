@@ -419,9 +419,9 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
-        if(item.getItemId()== R.id.filter){
+        if(item.getItemId()== R.id.tabs){
 
-            Intent intent = new Intent(MainActivity.this,FilterActivity.class);
+            Intent intent = new Intent(MainActivity.this,TabActivity.class);
             startActivity(intent);
 
         }

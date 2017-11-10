@@ -9,7 +9,7 @@
 
         />
 
-    <item android:id="@+id/filter"
+    <item android:id="@+id/tabs"
         android:title="filter_title"
         android:icon="@drawable/filter_tool_black_shape"
         app:showAsAction="collapseActionView|ifRoom" />

@@ -35,5 +35,10 @@ public interface ApiService {
     @GET("filtertype.php")
     Call<PhotoItemCollectionDao> loadFilterType(@QueryMap Map<String, String> map);
 
+    @GET("filtertypeallevent.php")
+    Call<PhotoItemCollectionDao> loadFilterTypeAllEvent(@QueryMap Map<String, String> map);
+    
+    @GET("filtertypecloseevent.php")
+    Call<PhotoItemCollectionDao> loadFilterTypeCloseEvent(@QueryMap Map<String, String> map);
 
 }

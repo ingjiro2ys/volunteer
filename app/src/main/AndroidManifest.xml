@@ -26,6 +26,7 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,9 +63,9 @@
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".AnswerQuestionActivity"
-            android:windowSoftInputMode="adjustPan"
             android:label="คำถามกิจกรรม"
-            android:theme="@style/AppThemeWithActionBar" />
+            android:theme="@style/AppThemeWithActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".FavoriteActivity"
             android:label="อ่านภายหลัง"
@@ -93,26 +94,28 @@
             android:name=".FilterActivity"
             android:label="Filter Event"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".CommentActivity"
+        <activity
+            android:name=".CommentActivity"
             android:label="Comment"
             android:theme="@style/AppThemeWithActionBar"
             android:windowSoftInputMode="stateHidden">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".NotificationActivity"
             android:label="แจ้งเตือน"
-            android:theme="@style/AppThemeWithActionBar">
-        </activity>
+            android:theme="@style/AppThemeWithActionBar"></activity>
         <activity
             android:name=".Detail2Activity"
             android:label="กิจกรรม"
             android:theme="@style/AppThemeWithActionBar" />
-
+        <activity
+            android:name=".TabActivity"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/AppThemeWithActionBar"></activity>
     </application>
 
 </manifest>

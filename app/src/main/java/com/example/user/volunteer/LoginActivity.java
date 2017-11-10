@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
     SharedPreferences sp1;
     SharedPreferences sp2;
     SharedPreferences.Editor editor;
-//    SharedPreferences.Editor editor1;
+
     String userID_af_p;
 
 
@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
         });
 
     }
+
 
     public void processFinish(String s) {
         Log.d(TAG, s);
