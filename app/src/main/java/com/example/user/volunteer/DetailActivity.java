@@ -125,7 +125,7 @@ public class DetailActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
         //userID = getIntent().getStringExtra("userID");
-        Toast.makeText(getBaseContext(),userID,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),userID,Toast.LENGTH_SHORT).show();
         dao = getIntent().getParcelableExtra("dao");
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -237,7 +237,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //TODO: add
         eventID = dao.getEventID();
-        Toast.makeText(DetailActivity.this,"event id: "+eventID,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(DetailActivity.this,"event id: "+eventID,Toast.LENGTH_SHORT).show();
 
         requestQueue = Volley.newRequestQueue(this);
         url = "http://10.4.56.14:82/checkFav.php/?query=SELECT%20*%20FROM%20favoriteEvent%20where%20eventID="+eventID+"%20AND%20userID%20="+userID;
@@ -265,7 +265,7 @@ public class DetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Log.d("onResponse", response);
-                            Toast.makeText(getBaseContext(), "done", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
 
                         }
                     }, new Response.ErrorListener() {
@@ -294,7 +294,7 @@ public class DetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Log.d("onResponse", response);
-                            Toast.makeText(getBaseContext(), "done", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "บันทึก", Toast.LENGTH_SHORT).show();
 
                         }
                     }, new Response.ErrorListener() {
@@ -494,7 +494,7 @@ public class DetailActivity extends AppCompatActivity {
                                     deleteMethod();
                                     Intent in = new Intent(getBaseContext(), MainActivity.class);
                                     startActivity(in);
-                                    Toast.makeText(getBaseContext(), String.valueOf(eventID), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getBaseContext(), String.valueOf(eventID), Toast.LENGTH_SHORT).show();
                                     finish();
 
                                 }

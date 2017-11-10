@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             public void onClick(View v) {
                 Intent in = new Intent(MainActivity.this,FavoriteActivity.class);
                 startActivity(in);
-                Toast.makeText(MainActivity.this, "Your Favorite Event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Your Favorite Event", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "Your Register Event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Your Register Event", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,JoinEventActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "Your Join Event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Your Join Event", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,OwnerEventActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "Event's Owner", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Event's Owner", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -308,9 +308,10 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         btn_5_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -466,7 +467,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         itemCart = menu.findItem(R.id.action_cart);
         icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, listAmount);
-        Toast.makeText(getBaseContext(),"listAmount: "+listAmount,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"listAmount: "+listAmount,Toast.LENGTH_SHORT).show();
         itemCart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -562,7 +563,7 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     protected void onResume() {
         super.onResume();
         countNoti();
-        Toast.makeText(getBaseContext(),"Resume : "+listAmount,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"Resume : "+listAmount,Toast.LENGTH_SHORT).show();
         VersionHelper.refreshActionBarMenu(this);
     }
 

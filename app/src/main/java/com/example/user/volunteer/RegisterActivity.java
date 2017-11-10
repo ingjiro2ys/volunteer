@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         //TODO: add sharePrefer
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
-        Toast.makeText(getBaseContext(),""+userID,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),""+userID,Toast.LENGTH_SHORT).show();
 
         initInstance();
     }
@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                 intent.putExtra("dao", dao);
                 //intent.putExtra("userID", userID);
                 startActivity(intent);
-                Toast.makeText(RegisterActivity.this, dao.getEventID() + "", Toast.LENGTH_LONG).show();
+                //Toast.makeText(RegisterActivity.this, dao.getEventID() + "", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -111,7 +111,7 @@ public class Detail2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_detail2);
 
         eventID = getIntent().getStringExtra("eventID");
-        Toast.makeText(getBaseContext(),"event id "+eventID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"event id "+eventID, Toast.LENGTH_SHORT).show();
         getDetail();
 
         // ต้องรับ Parcelable มาจาก Main แล้วแสดง
@@ -119,7 +119,7 @@ public class Detail2Activity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
         userID = sp.getString("userID","");
         //userID = getIntent().getStringExtra("userID");
-        Toast.makeText(getBaseContext(),userID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),userID, Toast.LENGTH_SHORT).show();
 
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -147,7 +147,7 @@ public class Detail2Activity extends AppCompatActivity {
 
         //Toast.makeText(DetailActivity.this,dao.getLat()+" , "+dao.getLng(),Toast.LENGTH_LONG).show();
 
-        Toast.makeText(getBaseContext(),""+lat+"  "+lng+"  "+imagePath, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(),""+lat+"  "+lng+"  "+imagePath, Toast.LENGTH_LONG).show();
         // MAP *******
         FragmentManager fragman = getFragmentManager();
         mMapFragment = (MapFragment)fragman.findFragmentById(R.id.map_frag);
@@ -174,7 +174,7 @@ public class Detail2Activity extends AppCompatActivity {
 
         //TODO: add
         //eventID = dao.getEventID();
-        Toast.makeText(Detail2Activity.this,"event id: "+eventID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Detail2Activity.this,"event id: "+eventID, Toast.LENGTH_SHORT).show();
 
         requestQueue = Volley.newRequestQueue(this);
         url = "http://10.4.56.14:82/checkFav.php/?query=SELECT%20*%20FROM%20favoriteEvent%20where%20eventID="+eventID+"%20AND%20userID%20="+userID;

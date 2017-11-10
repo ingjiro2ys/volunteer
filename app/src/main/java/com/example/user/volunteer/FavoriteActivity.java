@@ -71,7 +71,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 intent.putExtra("dao", dao);
                 //add
                 startActivity(intent);
-                Toast.makeText(FavoriteActivity.this, dao.getEventName() + "", Toast.LENGTH_LONG).show();
+                //Toast.makeText(FavoriteActivity.this, dao.getEventName() + "", Toast.LENGTH_LONG).show();
             }
         });
 

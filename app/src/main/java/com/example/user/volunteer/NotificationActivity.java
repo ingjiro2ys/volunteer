@@ -148,11 +148,11 @@ public class NotificationActivity extends AppCompatActivity {
 
                         if(!tv_noti.getTypeface().isBold()){ //default
                             readCode="1"; //already click
-                            Toast.makeText(getBaseContext(),"Default", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(),"Default", Toast.LENGTH_SHORT).show();
                         }else{ //not click yet
-                            Toast.makeText(getBaseContext(),"Bold", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(),"Bold", Toast.LENGTH_SHORT).show();
                             tv_noti.setTypeface(Typeface.DEFAULT);
-                            Toast.makeText(getBaseContext(),"read", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(),"read", Toast.LENGTH_SHORT).show();
                             //connect to DB
                             requestQueue = Volley.newRequestQueue(NotificationActivity.this);
                             StringRequest request = new StringRequest(Request.Method.POST, URLRead, new com.android.volley.Response.Listener<String>() {

@@ -53,6 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 
 public class AnswerQuestionActivity extends AppCompatActivity {
 
@@ -95,12 +96,15 @@ public class AnswerQuestionActivity extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollView1);
         button = (Button) findViewById(R.id.sendAnsBtn);
 
+        // add
+        Map<String,String> map = new HashMap<>();
+        map.put("eventID", eventID);
         //Initialize Color's List
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        retrofit.create(AnswerService.class).answers().enqueue(new Callback<List<Answer>>() {
+        retrofit.create(AnswerService.class).answers(map).enqueue(new Callback<List<Answer>>() {
             @Override
             public void onResponse(Call<List<Answer>> call, retrofit2.Response<List<Answer>> response) {
                 answers = response.body();
@@ -111,7 +115,7 @@ public class AnswerQuestionActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(AnswerQuestionActivity.this, "lol", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AnswerQuestionActivity.this, "lol", Toast.LENGTH_SHORT).show();
 
                         /*Intent intent = new Intent(MainActivity.this,DetailActivity.class);
                         intent.putExtra("color",item);
@@ -203,6 +207,6 @@ public class AnswerQuestionActivity extends AppCompatActivity {
         Call<List<Answer>> postEventId(@Field("eventID") int eventID);*/
 
         @GET("show_questions.php")
-        Call<List<Answer>> answers();
+        Call<List<Answer>> answers(@QueryMap Map<String, String> map);
     }
 }

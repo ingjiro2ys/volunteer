@@ -120,7 +120,7 @@ public class ShowUserRegisActivity extends AppCompatActivity {
                         intent.putExtra("eventID", eventID);
                         intent.putExtra("clickedUser", clickedUser);
                         startActivity(intent);
-                        Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ShowUserRegisActivity.this, "id" + userRegises.get(position).getUserID(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
