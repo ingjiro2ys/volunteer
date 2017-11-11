@@ -3,7 +3,9 @@ package com.example.user.volunteer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.session.MediaSessionManager;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,8 +53,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
     SharedPreferences sp2;
     SharedPreferences.Editor editor;
 
+    boolean isLogin;
     String userID_af_p;
 
+    // Session Manager Class
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +70,17 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
                 .init();
         //OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
 
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
         
         initInstance();
     }
 
     private void initInstance() {
-
         /////////////////////////////
         userName = (EditText) findViewById(R.id.userName);
         userPass = (EditText) findViewById(R.id.userPass);
+        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
@@ -115,6 +122,8 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
     public void processFinish(String s) {
         Log.d(TAG, s);
         if (s.contains("success")) {
+            //TODO:ADD
+            session.createLoginSession(userFullName, userName.getText().toString());
             Intent in = new Intent(LoginActivity.this, MainActivity.class);
             //in.putExtra("userName",userName.getText().toString());
             startActivity(in);
@@ -174,6 +183,12 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
             editor = sp.edit();
             editor.putString("userID",userID);
             editor.commit();
+
+//
+//            if(sp.getString("USER",null)!=null){
+//                finish();
+//                startActivity(new Intent(getBaseContext(),LoginActivity.class));
+//            }
 
             /*userID_af_p = sp.getString("userID","");
             Toast.makeText(getBaseContext(),"userID after Share Pre2: "+userID_af_p,Toast.LENGTH_SHORT).show();*/

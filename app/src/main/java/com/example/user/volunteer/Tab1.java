@@ -228,7 +228,7 @@ public class Tab1 extends Fragment {
                 intent.putExtra("dao", dao);
                 //intent.putExtra("userID", userID);
                 startActivity(intent);
-                Toast.makeText(getActivity(), dao.getEventID() + "Done", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), dao.getEventID() + "Done", Toast.LENGTH_LONG).show();
             }
         });
 

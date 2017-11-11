@@ -118,10 +118,26 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
     MenuItem itemCart;
     LayerDrawable icon;
 
+    // Session Manager Class
+    SessionManager session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TODO:ADD
+        // Session class instance
+        session = new SessionManager(getApplicationContext());
+        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        session.checkLogin();
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+        // email
+        String email = user.get(SessionManager.KEY_USERNAME);
+        // END
 
 
         //userName = getIntent().getStringExtra("userName");
@@ -308,10 +324,13 @@ public class MainActivity extends AppCompatActivity{  //implements SearchView.On
         btn_5_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                //TODO:ADD
+                session.logoutUser();
                 finish();
+                //Toast.makeText(MainActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
 

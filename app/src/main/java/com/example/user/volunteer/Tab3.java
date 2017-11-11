@@ -1,7 +1,9 @@
 package com.example.user.volunteer;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -55,6 +57,7 @@ public class Tab3 extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
 
     View view;
+    String userID;
 
     @Nullable
     @Override
@@ -226,7 +229,7 @@ public class Tab3 extends Fragment {
                 intent.putExtra("dao", dao);
                 //intent.putExtra("userID", userID);
                 startActivity(intent);
-                Toast.makeText(getActivity(), dao.getEventID() + "Done", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), dao.getEventID() + "Done", Toast.LENGTH_LONG).show();
             }
         });
 

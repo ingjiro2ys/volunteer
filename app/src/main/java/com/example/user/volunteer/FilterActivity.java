@@ -1,7 +1,9 @@
 package com.example.user.volunteer;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +44,7 @@ public class FilterActivity extends AppCompatActivity {
     String line = null;
     String result = null;
     String[] data;
+    String userID;
 
     String eventTypeID;
     String selectedItem;
@@ -58,6 +61,10 @@ public class FilterActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //TODO: add sharePrefer
+        SharedPreferences sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        userID = sp.getString("userID","");
 
         filterspinner = (Spinner)findViewById(R.id.filterspinner);
 

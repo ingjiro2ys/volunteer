@@ -24,16 +24,15 @@
             android:value="AIzaSyD7HzTbk-4UW3alfScM_yr5NQJCZWss4cA" />
 
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchableActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".SearchResultsActivity">
             <intent-filter>
