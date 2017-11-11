@@ -149,7 +149,7 @@ public class Detail2Activity extends AppCompatActivity {
 
         //Toast.makeText(getBaseContext(),""+lat+"  "+lng+"  "+imagePath, Toast.LENGTH_LONG).show();
         // MAP *******
-        FragmentManager fragman = getFragmentManager();
+        /*FragmentManager fragman = getFragmentManager();
         mMapFragment = (MapFragment)fragman.findFragmentById(R.id.map_frag);
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -170,7 +170,7 @@ public class Detail2Activity extends AppCompatActivity {
                         .build();
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
             }
-        });
+        });*/
 
         //TODO: add
         //eventID = dao.getEventID();
@@ -302,6 +302,29 @@ public class Detail2Activity extends AppCompatActivity {
                 userOwnerID = detail.getUserOwnerID();
                 joinedAmount = (String.valueOf(detail.getJoinedAmount()));
                 //add
+
+                FragmentManager fragman = getFragmentManager();
+                mMapFragment = (MapFragment)fragman.findFragmentById(R.id.map_frag);
+                mMapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        dmlat = lat;
+                        dmlng = lng;
+                        LatLng pos = new LatLng(dmlat,dmlng);
+                        MarkerOptions marker = new MarkerOptions()
+                                .position(pos)
+                                .title(eventLocationName)
+                                .snippet("Des");
+                        googleMap.addMarker(marker);
+
+                        CameraPosition cameraPos = CameraPosition.builder()
+                                .target(pos)
+                                .zoom(16)
+                                .tilt(0)
+                                .build();
+                        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
+                    }
+                });
 
 
 
