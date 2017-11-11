@@ -6,7 +6,6 @@
         android:title="search_title"
         android:icon="@drawable/ic_search_black_48dp"
         app:showAsAction="collapseActionView|ifRoom"
-
         />
 
     <item android:id="@+id/tabs"

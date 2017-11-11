@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
-        forgetPass = (TextView) findViewById(R.id.forgetPass);
+//        forgetPass = (TextView) findViewById(R.id.forgetPass);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,12 +109,12 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse{
             }
         });
 
-        forgetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(LoginActivity.this,"สมน้ำหน้า",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        forgetPass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(LoginActivity.this,"สมน้ำหน้า",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
