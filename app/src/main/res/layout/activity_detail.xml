@@ -218,7 +218,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/joinEventBth"
                     android:text="@string/join_this_event"
-                    android:background="@drawable/selector_btn_default" />
+                    android:background="@drawable/selector_btn_default"
+                    android:visibility="visible"/>
 
 
         </LinearLayout>

@@ -98,6 +98,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private static final String URLReport = "http://10.4.56.14:82/insertReportEvent.php";
+    String URLCheckAmount;
 
     int eventID;
     String userID;
@@ -113,6 +114,7 @@ public class DetailActivity extends AppCompatActivity {
     PhotoItemDao dao;
     //add
     String descriptReport = "";
+    String countRegis;
 
     RequestQueue requestQueue;
 
@@ -182,10 +184,18 @@ public class DetailActivity extends AppCompatActivity {
         joinedAmount = (String.valueOf(dao.getJoinedAmount()));
         //add
 
+        if(userID.equals(""+userOwnerID)) {
+           joinEventBth.setVisibility(View.GONE);
+        }
+
 
         joinEventBth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //new MyAsyncTask1().execute(URLCheckAmount,"parse");
+
+
                 /*Toast.makeText(DetailActivity.this,eventID+"",Toast.LENGTH_SHORT).show();
                 SimpleDateFormat fm = new SimpleDateFormat("EEE, d MMM yyyy");
                 try {
@@ -200,7 +210,12 @@ public class DetailActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }*/
-                onButtonClick();
+                if(Integer.parseInt(countRegis)>=1){
+                    Toast.makeText(getBaseContext(),"คุณเคยสมัครเข้าร่วมกิจกรรมแล้ว",Toast.LENGTH_SHORT).show();
+                }else{
+                    onButtonClick();
+                }
+
             }
         });
 
@@ -235,6 +250,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        URLCheckAmount = "http://10.4.56.14:82/get_joinedAmount_count.php/?query=SELECT%20count(1)%20FROM%20registerEvent%20where%20userID%20=%20"+userID+"%20AND%20eventID%20=%20"+eventID;
         //TODO: add
         eventID = dao.getEventID();
         //Toast.makeText(DetailActivity.this,"event id: "+eventID,Toast.LENGTH_SHORT).show();
@@ -326,6 +342,8 @@ public class DetailActivity extends AppCompatActivity {
 
         //gestureObject = new GestureDetectorCompat(this , new LearnGesture());
         // learngesture class file
+
+        new MyAsyncTask1().execute(URLCheckAmount,"parse");
 
 
     }
@@ -662,6 +680,52 @@ public class DetailActivity extends AppCompatActivity {
             }
             return true;
 
+        }
+    }
+    class MyAsyncTask1 extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            try{
+                java.net.URL url = new URL(params[0]);
+                HttpURLConnection httpCon = (HttpURLConnection)url.openConnection();
+                httpCon.setDoInput(true);
+                httpCon.connect();
+
+                InputStream inStream = httpCon.getInputStream();
+                Scanner scanner = new Scanner(inStream, "Windows-874");
+                response = scanner.useDelimiter("\\A").next();
+            }catch (Exception ex){}
+
+            if(params[1].equals("show")){
+                return response;
+
+            }else if(params[1].equals("parse")){
+                String output = "";
+                try{
+                    JSONObject jsonResult = new JSONObject(response);
+                    JSONArray data = jsonResult.getJSONArray("Count");
+                    for(int p =0; p < data.length(); p++ ){
+                        JSONObject productObject = data.optJSONObject(p);
+                        output = productObject.optString("count(1)");
+                        /*output += "* eventID "+productObject.optString("eventID");
+                        output += " - userID "+productObject.optString("userID");
+                        output += " - FavCode "+productObject.optString("chooseFavorite")+"\n";*/
+                    }
+                    //output += "\n";
+                } catch (JSONException e) {}
+                return output;
+            }else{
+                return "";
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //Toast.makeText(getBaseContext(),"output: "+s,Toast.LENGTH_SHORT).show();
+            //favCode = s;
+            countRegis=s;
         }
     }
 }

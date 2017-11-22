@@ -2,6 +2,51 @@
 <items version="2" >
 
     <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.1.0\814258103cf26a15fcc26ecce35f5b7d24b73f8\support-annotations-26.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\support-annotations-26.1.0_52d8982314369150eabcc5e41b135af42679aa93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\dcfd440f66041518dfab9a681c809dda3483472f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="787102860a3ae9ed31c934b03ce15ba584a43005">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_917f152fb5ab1aeb4830d29aaaeb67f5f658ca0c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.squareup\otto\1.3.8\cf615176cd1177edf71d3c9605f8dc148fede6be\otto-1.3.8.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cf615176cd1177edf71d3c9605f8dc148fede6be">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\otto-1.3.8_0b403deaca8c863cfb51960c752fba0c8a335e61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\fec4dc48cd38b07b2d64a23c88db1c8b4896d2db\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a1c4ae24ce3c755b3ef7d79a343acfadfb0b097e">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_6b8bebdc59dafddf0bea3e8bcafe8addaaa59543.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\1201175ad97e603928d9eab4264a1edfe4763f84\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="73d3d4e86f3d6da0dd1987f7cff9fb07d5a36132">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_b70db1fd63e0ad47ccc81be10f5e35a452b9f934.jar" />
+    </item>
+    <item
         is-multidex="true"
         jar="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
@@ -9,6 +54,105 @@
         revision="26.0.2"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_024fd59566bdd29cad13381be0119cc2996b94cb\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\b484dfad206bff558220dc57f2fc326acd647d7c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_91ee4110d170937212b667b3d90e787f69b1f52f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\Documents\GitHub\volunteer\app\libs\GenAsync.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6a58a869c275f3424cffb0c266d1d1c1518e38e7">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\GenAsync_f31b9222791f52715900178b6f07ef92f2a9894d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.2.0\41e67dba73c3347e4503761642c39d0e06ca1f2\retrofit-2.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="041e67dba73c3347e4503761642c39d0e06ca1f2">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\retrofit-2.2.0_3c53f5e5772bc945236669c5eecae6e2fa28f18d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\337dcb1aa125368008dd10c6fca4458255dd1bf4\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1d2ee92c55b107ec366ddb534edae4548201e25b">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_80324c3e0cadb5cb0e49ce6a4945e7bbdb12c307.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\0ce67e4523c13d193329bd84b3cc23cf5b54c0e9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="508f50705b4fde51a16259f29c854201a3044516">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_49addce22f6af871540e1acfcf3ab00c5564df69.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\a4a590eb067709b0bc4ec26152fbe43a777cd7c3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b4d6fbbb48b42dd03fd9c5a09b3b7a53266df6ed">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_285379cd1cc82de5f7732fe14558ac159201962f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\android.arch.lifecycle\common\1.0.0\e414a4cb28434e25c4f6aa71426eb20cf4874ae9\common-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\common-1.0.0_122978a14af25a3b247809c8ab1a3475523a48cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\b2ce14870e959eda1820771f675de14c107183ab\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="233f60a165ae622c8b36731502ebbda0f65e1930">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_b19eb4d52504eb898e3071603afa8014e700b315.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\e4fe094ec43abe871eca9a9ccd28e615cd73d16c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_7b867807dc7ca00aedbc11a38986f9efcf1d65f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\9beb01e58a247ebc3d91f2d8e8b20ac1462cf808\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_14bb4a97a02c5bc8133d7e1247462b8d80a8abf0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\android.arch.core\common\1.0.0\a2d487452376193fc8c103dd2b9bd5f2b1b44563\common-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\common-1.0.0_0bbc0d373166cdce4387429ed8f9f9297b70f24d.jar" />
     </item>
     <item
         is-multidex="true"
@@ -20,6 +164,177 @@
         <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_d420a6cf502ef43eedbb72abb7dfae5a7a77d083\classes.dex" />
     </item>
     <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\66c2419f94659e5b1c160f208a0b98821aabb739\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e6fff1d276738bb82cfc131c49d2e72a47dfd0aa">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_1c1799ebe74e4d473f2dbfab13916ba13523efd7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\okhttp-3.6.0_8cb03cecb94624342b83c6696891afeca94e0c27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\f7a9185916ee35af2e7c46716762bd657326a1a0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0772eec11be9e3803736882ae4bec4078986910e">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_ada6edc564698c851a14d2450d5044d242748067.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.2.0\a09926806199499a20b2f5168779499abfa33342\converter-gson-2.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a09926806199499a20b2f5168779499abfa33342">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\converter-gson-2.2.0_52ac9fddca7684bf1669efa8605baed60b3d510c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\Documents\GitHub\volunteer\TheCheeseLibrary\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2d9a54b72525b7eff8db2f41eefeffd02bfabb14">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_5b407442ff2c9586e82669f7698f0d8b8a824dca.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\03d52e21f055722225f82d22cfe2c9e408baee8f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6de60b559084bc9f17f4d8916aaa35e058831696">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_14330cb179dd7d8aed6cf70f691ea19fcb87f9d9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.8.0\9bada650e1afe9c6174ddc0d113c1fce4dc26fe0\glide-3.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9bada650e1afe9c6174ddc0d113c1fce4dc26fe0">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\glide-3.8.0_20bdb9cdb324916e60e877971a1d95a03db592e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\feba896970c09ec76e5f7d92600f88134ac72834\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ef0e926de4ec20c998d1abd23231c5b37739ec21">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_f44dafb927c840b84a392684d457ce4568a4c87a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\6a075fb12828f3472022eb77271ba2b285071861\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_5fdd0d57bc82e886febf0890d4b8766aee843614.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\6a729ccc508f928d808c41c353d72f04b17aec0a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="30553c734f57621f31d6d56ad7b263123c7a014f">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_2482b79d583792063e69d606c0609b468576cfa6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\0d4e4078d75ea10c8015a4a68091637305d087d8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="722f4e3d1abfa535e19043c813c62bb144a7d02f">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_a1e7b67860315a3d4c9ad8fb1bef47788030a7a9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\f6bbf7558663a5c8b06d1d4052438d56b2e04a85\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3352405f829252e602a47d252f11edd7c89d86ff">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_3d71be42d34fdfbccbef38419893c69baca22a17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\9eaf15a84a4d5480a79f5fb7b9eaa3ec23cbddd6\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_a92a31df4c7de1abbbce85d68b1a8d5b52089a0d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\27b5f806dbf5805b557fa545f6c743c1438f1d68\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7ed36108b22a98a311676b5ad153d1e3587fcd16">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_ea6f7db90524f55a318876d171e1653729e33396.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\2189b8a26d3060fa60046b54da75f0b23d410dd2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b35ff61463403c8aa7820fc2fa7caf6a29e31c2c">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_53e36f8634698165cbd6eb8f03e683cc6f506ce4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\865ba901b790ddc48b364313eb2ebd5569c8d542\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fc3479eb36ae71cbe2a3a589ceda3b8b3b56f08f">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_e7aced2b866909857b8a08823cb7bf4480253bd8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\6d08394150a6acbf3d952a85b8d37c496dc5d7fc\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_0aa6ff2d12f961840ab95bb1b50fe58df8dca8ac.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_888dc6c70591458ee998c2926f41c5e65a528d54.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\9937af2fa034fa68eaa38f6d635c77b223adec27\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="918e3e9514d90e54421b674cf0c95044f4e155ad">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_1ebbd3e293629689e8ba9079422ca5ab9a92c87a.jar" />
+    </item>
+    <item
         is-multidex="true"
         jar="C:\Users\User\Documents\GitHub\volunteer\app\libs\GenAsync.jar"
         jumboMode="true"
@@ -27,6 +342,159 @@
         revision="26.0.2"
         sha1="6a58a869c275f3424cffb0c266d1d1c1518e38e7">
         <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\transforms\dex\debug\folders\1000\2\GenAsync_f31b9222791f52715900178b6f07ef92f2a9894d\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.11.0\840897fcd7223a8143f1d9b6f69714e7be34fd50\okio-1.11.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\okio-1.11.0_004bd14282f33002568c9440a0cf3df837e35fd4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\2d386309a89fdfa06ce9b1d8268ed619ebcb9ad1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_9ce1f356f09c60bd87163641b296e47852315c54.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\cf447b84d0dbef4eba998818c740fff45b94f733\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f4877a9f0a653e193bfb600379e4bfc8472be47">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_d5c4db67b2c07a0b2fd0aa5a3d0ae91b7d8e693c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\b5fa46bae234a86d8455544a7e7f4c5c7f0166fe\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e07c374db54419bb5ebc1c255792cd76aa7d1bb4">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_e56cf754bde19d6498acb6d7b450ede88d99a834.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\dfd1459638bf11b6636b4923885660f1603cbfcd\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_4148288ebfc0fed2cb6b3d390612383fd481aa2c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\a87f1d44b43a8155746f7fbb0530693eb2b39965\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="227bbf04b4eae5247addf6569dc42af539a45f37">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_447d0bb21360d303993d90f26664d2d19a931ae6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\ae9a0115ff92522dfe68c6467f69248d876a100c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="dfff80b6e21c10f40ec59c0e5d86d00bd67a1f35">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_6f8348583e9cb12b78057525eee9a56fdd8ce939.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.7\751f548c85fa49f330cecbb1875893f971b33c4e\gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\gson-2.7_6588e2d99545897d2f73b2d19e617a456d73fb1f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.gradle\caches\modules-2\files-2.1\org.parceler\parceler-api\1.0.2\7c9539c4d539a66b54562fa3c85ddde903da971b\parceler-api-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7c9539c4d539a66b54562fa3c85ddde903da971b">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\parceler-api-1.0.2_f1058e703813fe1aaf9295b0061da1b24d3877e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\7ef8cc9d9b89e33db13be417ba25a1308c233494\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_c0191a650ad2f0347d90f4e5c13bd9b6ba32e929.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\023bae568080bd4345a274a2fcedd4ba206d881e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cf47665b22d68f560d1b8fa2e51b8c23a34574f2">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_7aac14500f6bf97c76a52d698ad8c96fd3086bcd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\b971bff6eafd0a342669616c8a3c780da6f708d2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_974b0c8c32b1c9f61035d545a8b93552f9cc5629.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\68cefad21852258c56549d99d50202f7b6c1014e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_466da02458fc464530cb506e6b6d7d15bb87d2ca.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\6174e63a6ce4b88bab22520b1521ba975ab272ff\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_062e5d60804e7f73e03db3408b4365f2895c7eaa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\7b81b8d3d4b5a82eaee381c531ffc7597550b364\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="804d5ac4a043ce845ffe58c8913feb793d3a568b">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_da3d63f87ddd5b109f9468fb57f05b5b20847b32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\42d159c4ab5ae103b477892389bcdfe7eb79d56e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_edef752162963a20275e8b05cee3eaf9ccbaeb35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\User\.android\build-cache\e63f1f8760e81dd7e5f16c7aee560eca196d4f7b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="05e8375b2ec26e4508b2a745d5a0623ba95f9b49">
+        <dex dex="C:\Users\User\Documents\GitHub\volunteer\app\build\intermediates\pre-dexed\debug\classes_c8831c7ef7aac58a7ef2cdb107d4c59c161bbe22.jar" />
     </item>
 
 </items>
